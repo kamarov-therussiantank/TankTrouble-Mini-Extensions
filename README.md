@@ -1,4 +1,4 @@
-# TankTrouble Mini Extensions/tools
+# TankTrouble mini extensions/tools
 
 A lightweight collection of enhancements designed to elevate your TankTrouble experience
 
