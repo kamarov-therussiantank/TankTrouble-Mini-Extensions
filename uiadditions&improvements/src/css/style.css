@@ -79,23 +79,15 @@ tr.tooltipstered {
 #tankinfo table td:last-child svg {
     left: 5px;
 }
-#FAQSnippet {
-  background: #000000;
-  color: #ffffff;
-  cursor: pointer;
-}
-#faq-content {
-  padding: 5px;
-}
-#faq-header {
-  font-size: 36px;
-  font-weight: bold;
-}
 #modActivitySnippet {
-  height: 200px !important;
+  height: 210px !important;
 }
 #mod-activity {
-  padding: 5px;
+    padding: 5px;
+    background: rgb(200, 200, 200);
+    border-radius: 5px;
+    border-top: 2px solid rgba(113, 113, 113, 0.17);
+    margin: 5px;
 }
 .mod-entry {
   display: flex;
@@ -429,4 +421,93 @@ button.warning {
 :root.dark #adduser .content, :root.dark #goldShopItemsContainer .shopItem, :root.dark #settings .content, :root.dark #shopItemsContainer .shopItem, :root.dark #tankinfo .content, :root.dark #switchcontrols .content {
     color: #fff;
     background: #292929;
+}
+#forumSearchBar {
+    width: 60%;
+    position: relative;
+    left: 32%;
+}
+#forumSearchInput {
+    width: 60%;
+    position: relative;
+    border: #d5d5d5 2px solid !important;
+    border-radius: 5px;
+}
+#forumSearchSuggestions {
+    position:absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    display:none;
+    z-index: 999;
+    max-height: 250px;
+    overflow-y:auto;
+    width: 61%;
+}
+:root.dark #forumSearchBar {
+    width: 60%;
+    position: relative;
+    left: 32%;
+}
+:root.dark #forumSearchInput {
+    width: 60%;
+    position: relative;
+    border: #d5d5d5 2px solid !important;
+    border-radius: 5px;
+}
+:root.dark #forumSearchSuggestions {
+    position:absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    display:none;
+    z-index: 999;
+    max-height: 250px;
+    overflow-y:auto;
+    width: 61%;
+}
+.forum .playerUsername {
+    margin-top: 4px;
+    text-align: center;
+    color: #fff;
+    -webkit-text-stroke: 3px #000;
+    paint-order: stroke fill;
+}
+.leaderboard-snippet-list {
+    list-style: none;
+    padding: 7px;
+    background: rgb(200, 200, 200);
+    border-radius: 5px;
+    border-top: 2px solid rgba(113, 113, 113, 0.17);
+    margin: 2px;
+}
+.leaderboard-snippet-list li {
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+}
+.leaderboard-snippet-list .username {
+    flex: auto;
+    display: flex;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.leaderboard-snippet-list .stat {
+    font-size: 10px;
+    width: 50%;
+    font-weight: bold;
+    text-align: right;
+}
+select#snippetStat {
+    width: 80%;
+    margin-bottom: 5px;
+    border-radius: 3px;
 }
