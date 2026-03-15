@@ -36,54 +36,143 @@ window.getTimeAgo = function(unixTimestampInSeconds) {
         return `${days} day${days !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < month) {
         const weeks = Math.floor(secondsAgo / week);
-        return `${weeks} week${weeks !== 1 ? 's' : ''} ago`;
+        return `${weeks} wk${weeks !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < year) {
         const months = Math.floor(secondsAgo / month);
-        return `${months} month${months !== 1 ? 's' : ''} ago`;
+        return `${months} mo${months !== 1 ? 's' : ''} ago`;
     } else {
         const years = Math.floor(secondsAgo / year);
-        return `${years} year${years !== 1 ? 's' : ''} ago`;
+        return `${years} yr${years !== 1 ? 's' : ''} ago`;
     }
 }
 
+// Leaderboard snippet
+whenContentInitialized().then(async () => {
+    const snippet = document.createElement("div");
+    snippet.id = "leaderboardSnippet";
+    snippet.className = "snippet";
+    snippet.innerHTML = `
+        <div class="header">Leaderboard</div>
+        <div class="content"></div>
+        <select id="snippetStat" class="buttons">
+            <option value="kills">Kills</option>
+            <option value="victories">Victories</option>
+            <option value="rank">Rank</option>
+        </select>
+    `;
+    document.querySelector("#tertiaryContent").appendChild(snippet);
 
+//Script
+const statSelect = document.getElementById("snippetStat");
+    await loadAndRenderLeaderboard(statSelect.value);
+    statSelect.addEventListener("change", e => {
+        loadAndRenderLeaderboard(e.target.value);
+    });
+    setInterval(() => loadAndRenderLeaderboard(statSelect.value), 1000);
+});
+let emptyMessageIndex = 0;
+const emptyMessage = [
+    "Fetching.",
+    "Fetching..",
+    "Fetching...",
+];
+async function fetchOnlinePlayers() {
+    const players = [];
+    try {
+        const gameStates = ClientManager.getClient().getAvailableGameStates();
+        for (const gameState of gameStates) {
+            const playerStates = gameState.getPlayerStates();
+            for (const player of playerStates) {
+                const playerId = player.getPlayerId();
+                await new Promise(resolve => {
+                    Backend.getInstance().getPlayerDetails(
+                        result => {
+                            if (result && result.getUsername().toLowerCase() !== "laika") {
+                                players.push({
+                                    playerId: playerId,
+                                    username: result.getUsername(),
+                                    kills: result.getKills(),
+                                    victories: result.getVictories(),
+                                    rank: result.getRank()
+                                });
+                            }
+                            resolve();
+                        },
+                        err => resolve(),
+                        null,
+                        playerId,
+                        Caches.getPlayerDetailsCache()
+                    );
+                });
+            }
+        }
+    } catch (err) {
+        console.error("Failed to fetch online players:", err);
+    }
+    return players;
+}
+function getTopPlayers(players, stat="kills") {
+    return players.sort((a,b) => b[stat] - a[stat]).slice(0,10);
+}
+function renderLeaderboard(players, stat="kills") {
+    const container = document.querySelector("#leaderboardSnippet .content");
+    container.innerHTML = "";
+    if (!players.length) {
+    container.innerHTML = "<p class='empty' id='leaderboardEmpty'></p>";
+    const msgElement = document.getElementById("leaderboardEmpty");
+        function setNextMessage() {
+            msgElement.textContent = emptyMessage[emptyMessageIndex];
+            emptyMessageIndex = (emptyMessageIndex + 1) % emptyMessage.length;
+        }
+        setNextMessage();
+        clearInterval(window.leaderboardEmptyInterval);
+        window.leaderboardEmptyInterval = setInterval(setNextMessage, 1000);
+    }
+    const ul = document.createElement("ul");
+    ul.className = "leaderboard-snippet-list";
+    for (const p of players) {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            <span class="username">${p.username}</span>
+            <span class="stat">${p[stat].toLocaleString("en-US")}</span>
+        `;
+        ul.appendChild(li);
+    }
+
+    container.appendChild(ul);
+}
+async function loadAndRenderLeaderboard(stat="kills") {
+    const players = await fetchOnlinePlayers();
+    const topPlayers = getTopPlayers(players, stat);
+    renderLeaderboard(topPlayers, stat);
+}
+
+// Mod Activity Snippet
 whenContentInitialized().then(() => {
 const snippet = $(`
     <div id="modActivitySnippet" class="snippet">
         <div class="header">Mod Activity</div>
-
         <div id="mod-activity"></div>
-
-        <div id="refresh-timer" style="font-size:10px; margin-top:6px;">
+        <div id="refresh-timer" style="font-size:10px;">
             Refreshes in <span id="refresh-countdown"></span> seconds
         </div>
     </div>
 `);
-
 $('#tertiaryContent').append(snippet);
 
-const usernamesToLookup = [
-    'purup', 'bbc', 'foxter', 'dalek-buster', 'george8888', 'rhak', 'quickninja', 'lichen',
-    'gentleman', 'redwind', 'triplestryke', 'kerosene', 'newthy32', 'blackhalo', 'amplitude',
-    'nelfusion', 'giraffe', 'purplegnome', 'draculous', 'soulpanda', 'acehawk',
-    'captainahvong', 'spiros04', 'onion', 'savageaimbot'
-];
-
+//Script
+const usernamesToLookup = TankTrouble.WallOfFame.admins;
 let modEntries = [];
 let nextRefreshTimestamp = null;
-
 function fetchModDataAndUpdateUI() {
     const playerDetailsList = [];
     let completedRequests = 0;
     modEntries = [];
-
     snippet.find('#mod-activity').empty();
-
     usernamesToLookup.forEach(username => {
         Backend.getInstance().getPlayerDetailsByUsername(
             (result) => {
                 completedRequests++;
-
                 if (
                     result &&
                     typeof result.getUsername === 'function' &&
@@ -93,7 +182,6 @@ function fetchModDataAndUpdateUI() {
                 ) {
                     playerDetailsList.push(result);
                 }
-
                 if (completedRequests === usernamesToLookup.length) {
                     playerDetailsList
                         .sort((a, b) => b.getLastLogin() - a.getLastLogin())
@@ -101,7 +189,6 @@ function fetchModDataAndUpdateUI() {
                         .forEach(player => {
                             const username = player.getUsername();
                             const lastLogin = parseInt(player.getLastLogin(), 10);
-
                             const userRow = $(`
                                 <div class="mod-entry">
                                     <span class="mod-username"><div>${username}</div></span>
@@ -110,9 +197,7 @@ function fetchModDataAndUpdateUI() {
                                     </span>
                                 </div>
                             `);
-
                             snippet.find('#mod-activity').append(userRow);
-
                             modEntries.push({
                                 lastLogin,
                                 element: userRow.find('.mod-last-login')
@@ -142,14 +227,11 @@ function updateTimeAgoEntries() {
 function scheduleNextRefresh() {
     const now = Date.now();
     const nextMinute = new Date(now);
-
     nextMinute.setSeconds(0);
     nextMinute.setMilliseconds(0);
     nextMinute.setMinutes(nextMinute.getMinutes() + 1);
-
     nextRefreshTimestamp = nextMinute.getTime();
     const delay = nextRefreshTimestamp - now;
-
     setTimeout(() => {
         fetchModDataAndUpdateUI();
         scheduleNextRefresh();
@@ -158,12 +240,9 @@ function scheduleNextRefresh() {
 
 setInterval(() => {
     if (!nextRefreshTimestamp) return;
-
     const now = Date.now();
     let diff = Math.floor((nextRefreshTimestamp - now) / 1000);
-
     if (diff < 0) diff = 0;
-
     $('#refresh-countdown').text(diff);
 }, 1000);
 
