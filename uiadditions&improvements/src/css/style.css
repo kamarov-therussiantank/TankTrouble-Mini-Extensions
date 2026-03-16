@@ -1,3 +1,7 @@
+:root.dark .snippet {
+    color: #fff;
+    background: linear-gradient(rgb(41, 41, 41), rgb(32, 32, 32));
+}
 .exp.tooltipstered {
     position: relative;
     top: -1px;
@@ -88,6 +92,9 @@ tr.tooltipstered {
     border-radius: 5px;
     border-top: 2px solid rgba(113, 113, 113, 0.17);
     margin: 5px;
+}
+:root.dark #mod-activity {
+    background: #1a1a1abb;
 }
 .mod-entry {
   display: flex;
@@ -280,8 +287,8 @@ a {
     filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .5)) !important;
 }
 :root.dark .forum .bubble {
-    background: #292929;
-    border: #ffffff00 2px solid;
+    background: #292929 !important;
+    border: #ffffff00 2px solid !important;
 }
 .forum .thread.selectable:not(.editing) .bubble:hover {
     background: #e2e2e2 !important
@@ -446,24 +453,18 @@ button.warning {
     overflow-y:auto;
     width: 61%;
 }
-:root.dark #forumSearchBar {
-    width: 60%;
-    position: relative;
-    left: 32%;
-}
 :root.dark #forumSearchInput {
-    width: 60%;
+    color: #fff !important;
     position: relative;
-    border: #d5d5d5 2px solid !important;
-    border-radius: 5px;
+    border: #2a2a2a 2px solid !important;
 }
 :root.dark #forumSearchSuggestions {
     position:absolute;
     top: 100%;
     left: 0;
     right: 0;
-    background: #fff;
-    border: 1px solid #ccc;
+    background: #222 !important;
+    border: 1px solid #121212 !important;
     display:none;
     z-index: 999;
     max-height: 250px;
@@ -484,6 +485,9 @@ button.warning {
     border-radius: 5px;
     border-top: 2px solid rgba(113, 113, 113, 0.17);
     margin: 2px;
+}
+:root.dark .leaderboard-snippet-list {
+    background: #1a1a1abb;
 }
 .leaderboard-snippet-list li {
     font-size: 10px;
