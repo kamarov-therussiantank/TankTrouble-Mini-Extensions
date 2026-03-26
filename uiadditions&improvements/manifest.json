@@ -1,7 +1,7 @@
 {
 	"name": "UI Additions & Improvements",
 	"author": "kamarov",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"manifest_version": 3,
 	"description": "UI additions & Improvements! To make your game experiance better.",
 	"icons": {
@@ -28,7 +28,7 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.tanktrouble.com/*"],
-			"js": ["src/scripts/tankInfoAdditions.js", "src/scripts/accountInfoAdditions.js", "src/scripts/snippets.js", "src/scripts/highResolutionTanks.js", "src/scripts/forumAdditions.js", "src/scripts/darkMode.js"	],
+			"js": ["src/scripts/tankInfoAdditions.js", "src/scripts/accountInfoAdditions.js", "src/scripts/snippets.js", "src/scripts/highResolutionTanks.js", "src/scripts/forumAdditions.js", "src/scripts/phaser.min.js"],
 			"css": ["src/css/style.css"],
 			"run_at": "document_idle",
             "world": "MAIN"
