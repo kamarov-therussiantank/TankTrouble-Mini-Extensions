@@ -125,95 +125,65 @@ QualityManager.QUALITY_VALUES.low = {
     "spawn zone inverse unstable particle probability": 1,
     "spawn zone num collapse particles": 0
 };
- 
-whenContentInitialized().then(() => {
-Game.UIBootState.method('create', function () {
-    this.log = Log.create('UIBootState');
- 
-            // Input & scale settings
-            this.input.touch.preventDefault = false;
-            this.scale.compatibility.scrollTo = false;
- 
-            // Disable right-click context menu
-            this.game.canvas.oncontextmenu = function (e) {
-                e.preventDefault();
-            };
- 
-            // Prevent game from pausing when tab loses focus
-            this.game.stage.disableVisibilityChange = true;
- 
-            // Add key capture for common keys
-            this.input.keyboard.addKeyCapture([
-                Phaser.Keyboard.LEFT,
-                Phaser.Keyboard.RIGHT,
-                Phaser.Keyboard.UP,
-                Phaser.Keyboard.DOWN,
-                Phaser.Keyboard.SPACEBAR
-            ]);
- 
-            // Disable input if overlay is showing
-            if (OverlayManager.isOverlayShowing()) {
-                this.input.enabled = false;
-            }
- 
-            // Set world bounds and background
-            this.world.bounds = new Phaser.Rectangle(0, 0, this.game.width, this.game.height);
-            this.camera.setBoundsToWorld();
-            this.stage.backgroundColor = '#fff';
- 
-            // Change animation frames
-            var time = this.game.time;
-            time.physicsElapsed = 1 / 120;
-            time.physicsElapsedMS = 1000 * time.physicsElapsed;
- 
-            // Handle high DPI scaling
-            if (this.game.device.pixelRatio > 1) {
-                this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
- 
-                // Scale down for high DPI
-                const scaleRatio = 1 / this.game.device.pixelRatio;
-                this.scale.setUserScale(scaleRatio, scaleRatio, 0, 0);
-                this.scale.setGameSize(
-                    this.game.width * this.game.device.pixelRatio,
-                    this.game.height * this.game.device.pixelRatio
-                );
- 
-                // Handle resizing
-                this.scale.setResizeCallback(function (scale, parentBounds) {
-                    const newWidth = parentBounds.width * this.game.device.pixelRatio;
-                    const newHeight = parentBounds.height * this.game.device.pixelRatio;
- 
-                    if (
-                        Math.abs(newWidth - this.game.width) >= 0.01 ||
-                        Math.abs(newHeight - this.game.height) >= 0.01
-                    ) {
-                        this.log.debug('RESIZE CANVAS!');
-                        this.scale.setGameSize(newWidth, newHeight);
-                    }
-                }, this);
-            } else {
-                this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-            }
- 
-            // Start preload state
-            this.state.start('Preload');
-        });
- 
-  //Uncap FPS
-  (function() {
-    'use strict';
- 
-    const originalRequestAnimationFrame = window.requestAnimationFrame;
- 
-    window.requestAnimationFrame = function(callback) {
-        return originalRequestAnimationFrame(function(timestamp) {
-            setTimeout(() => callback(performance.now()), 0);
-        });
-    };
- 
-    if ('requestAnimationFrame' in window) {
-        console.log('FPS uncapped.');
+
+(function () {
+    const TARGET_FPS = 240;
+    function getFrameDeltaMS(time) {
+        const elapsedMS = Number(time.elapsedMS);
+        if (Number.isFinite(elapsedMS) && elapsedMS > 0) return elapsedMS;
+        const delta = Number(time.delta);
+        if (Number.isFinite(delta) && delta > 0) return delta;
+        return 1000 / 60;
     }
+    function applyFPSpatch() {
+        if (!window.Phaser || !Phaser.Time || !Phaser.Game) {
+            requestAnimationFrame(applyFPSpatch);
+            return;
+        }
+        if (Phaser.Time.prototype.__fpsUnlocked) return;
+        Phaser.Time.prototype.__fpsUnlocked = true;
+        Object.defineProperty(Phaser.Time.prototype, 'physicsElapsed', {
+            get: function () {
+                return getFrameDeltaMS(this) / 1000;
+            },
+            set: function (value) {
+                const ms = Number(value) * 1000;
+                if (Number.isFinite(ms)) {
+                    this.elapsedMS = ms;
+                    this.delta = ms;
+                }
+            },
+            configurable: true
+        });
+        Object.defineProperty(Phaser.Time.prototype, 'physicsElapsedMS', {
+            get: function () {
+                return getFrameDeltaMS(this);
+            },
+            set: function (value) {
+                const ms = Number(value);
+                if (Number.isFinite(ms)) {
+                    this.elapsedMS = ms;
+                    this.delta = ms;
+                }
+            },
+            configurable: true
+        });
+        if (!Phaser.Game.prototype.__fpsUnlockWrapped && typeof Phaser.Game.prototype.update === 'function') {
+            const originalUpdate = Phaser.Game.prototype.update;
+            Phaser.Game.prototype.__fpsUnlockWrapped = true;
+            Phaser.Game.prototype.update = function (time) {
+                if (this.time) {
+                    const currentFps = Number(this.time.desiredFps);
+                    const desiredFps = Number.isFinite(currentFps) ? Math.max(currentFps, TARGET_FPS) : TARGET_FPS;
+                    this.time.desiredFps = desiredFps;
+                    this.time.desiredFpsMult = 1 / desiredFps;
+                    if (typeof this.forceSingleUpdate === 'boolean') {
+                        this.forceSingleUpdate = true;
+                    }
+                }
+                return originalUpdate.call(this, time);
+            };
+        }
+    }
+    applyFPSpatch();
 })();
- 
-})
