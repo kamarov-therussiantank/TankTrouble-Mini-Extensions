@@ -15,7 +15,6 @@ function whenContentInitialized() {
 window.getTimeAgo = function(unixTimestampInSeconds) {
     const nowSeconds = Math.floor(Date.now() / 1000);
     const secondsAgo = nowSeconds - unixTimestampInSeconds;
-
     const minute = 60;
     const hour = 3600;
     const day = 86400;
@@ -24,25 +23,25 @@ window.getTimeAgo = function(unixTimestampInSeconds) {
     const year = day * 365.25;
 
     if (secondsAgo < minute) {
-        return `${secondsAgo} sec${secondsAgo !== 1 ? 's' : ''} ago`;
+        return `${secondsAgo} seconds${secondsAgo !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < hour) {
         const minutes = Math.floor(secondsAgo / minute);
-        return `${minutes} min${minutes !== 1 ? 's' : ''} ago`;
+        return `${minutes} minutes${minutes !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < day) {
         const hours = Math.floor(secondsAgo / hour);
-        return `${hours} hr${hours !== 1 ? 's' : ''} ago`;
+        return `${hours} hours${hours !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < week) {
         const days = Math.floor(secondsAgo / day);
-        return `${days} day${days !== 1 ? 's' : ''} ago`;
+        return `${days} days${days !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < month) {
         const weeks = Math.floor(secondsAgo / week);
-        return `${weeks} wk${weeks !== 1 ? 's' : ''} ago`;
+        return `${weeks} weeks${weeks !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < year) {
         const months = Math.floor(secondsAgo / month);
-        return `${months} mo${months !== 1 ? 's' : ''} ago`;
+        return `${months} months${months !== 1 ? 's' : ''} ago`;
     } else {
         const years = Math.floor(secondsAgo / year);
-        return `${years} yr${years !== 1 ? 's' : ''} ago`;
+        return `${years} years${years !== 1 ? 's' : ''} ago`;
     }
 }
 
@@ -138,7 +137,6 @@ function renderLeaderboard(players, stat="kills") {
         `;
         ul.appendChild(li);
     }
-
     container.appendChild(ul);
 }
 async function loadAndRenderLeaderboard(stat="kills") {
@@ -153,141 +151,116 @@ const snippet = $(`
     <div id="modActivitySnippet" class="snippet">
         <div class="header">Mod Activity</div>
         <div id="mod-activity"></div>
-        <div id="refresh-timer" style="font-size:10px;">
-            Refreshes in <span id="refresh-countdown"></span> seconds
-        </div>
     </div>
 `);
 $('#tertiaryContent').append(snippet);
 
 //Script
-const usernamesToLookup = TankTrouble.WallOfFame.admins;
-let modEntries = [];
-let nextRefreshTimestamp = null;
-function fetchModDataAndUpdateUI() {
-    const playerDetailsList = [];
-    let completedRequests = 0;
-    modEntries = [];
-    snippet.find('#mod-activity').empty();
-    usernamesToLookup.forEach(username => {
-        Backend.getInstance().getPlayerDetailsByUsername(
-            (result) => {
-                completedRequests++;
-                if (
-                    result &&
-                    typeof result.getUsername === 'function' &&
-                    typeof result.getLastLogin === 'function' &&
-                    typeof result.getGmLevel === 'function' &&
-                    result.getGmLevel() >= 1
-                ) {
-                    playerDetailsList.push(result);
-                }
-                if (completedRequests === usernamesToLookup.length) {
-                    playerDetailsList
-                        .sort((a, b) => b.getLastLogin() - a.getLastLogin())
-                        .slice(0, 10)
-                        .forEach(player => {
-                            const username = player.getUsername();
-                            const lastLogin = parseInt(player.getLastLogin(), 10);
-                            const userRow = $(`
-                                <div class="mod-entry">
-                                    <span class="mod-username"><div>${username}</div></span>
-                                    <span class="mod-last-login" title="${new Date(lastLogin * 1000).toLocaleString()}">
-                                        ${getTimeAgo(lastLogin)}
-                                    </span>
-                                </div>
-                            `);
-                            snippet.find('#mod-activity').append(userRow);
-                            modEntries.push({
-                                lastLogin,
-                                element: userRow.find('.mod-last-login')
-                            });
-                        });
-
-                    updateTimeAgoEntries();
-                }
-            },
-            (errorMessage) => {
-                completedRequests++;
-                snippet.find('#mod-activity').append(`<p>Error fetching player details: ${errorMessage}</p>`);
-            },
-            null,
-            username,
-            Caches.getPlayerDetailsCache()
-        );
-    });
-}
-
-function updateTimeAgoEntries() {
-    modEntries.forEach(({ lastLogin, element }) => {
-        element.text(getTimeAgo(lastLogin));
-    });
-}
-
-function scheduleNextRefresh() {
-    const now = Date.now();
-    const nextMinute = new Date(now);
-    nextMinute.setSeconds(0);
-    nextMinute.setMilliseconds(0);
-    nextMinute.setMinutes(nextMinute.getMinutes() + 1);
-    nextRefreshTimestamp = nextMinute.getTime();
-    const delay = nextRefreshTimestamp - now;
-    setTimeout(() => {
-        fetchModDataAndUpdateUI();
-        scheduleNextRefresh();
-    }, delay);
-}
-
-setInterval(() => {
-    if (!nextRefreshTimestamp) return;
-    const now = Date.now();
-    let diff = Math.floor((nextRefreshTimestamp - now) / 1000);
-    if (diff < 0) diff = 0;
-    $('#refresh-countdown').text(diff);
-}, 1000);
-
-
-fetchModDataAndUpdateUI();
-scheduleNextRefresh();
-
-setInterval(updateTimeAgoEntries, 60000);
-
-});
-
-whenContentInitialized().then(() => {
-
-    // Create the HTML snippet
-    const snippet = $(`
-    <div id="serverSnippet" class="snippet teaser standard">
-        <div class="header">Server Activity</div>
-        <div id="data">
-		    Online:
-            <div id="playersOnline">...</div>
-            <div id="gamesMade">...</div>
-        </div>
-    </div>
-    `);
-
-    $('#secondaryContent').append(snippet);
-
-    function updateNumber(element, number, label = '') {
-        if (!element || number === undefined) return;
-        element.text(`${number} ${label}`.trim());
-    }
-
-    TankTrouble.Statistics._updateStatistics = function(serverId = ClientManager.multiplayerServerId) {
-        ClientManager._getSelectedServerStats(serverId, (_success, _serverId, _latency, gameCount, playerCount) => {
-            this._updateNumber($('#playersOnline'), playerCount);
-            this._updateNumber($('#gamesMade'), gameCount, "game");
-            $('#serverSnippet').css('display', 'inline-block');
-        });
-    };
-
-    ClientManager.getClient().addEventListener((_, evt) => {
-        if (evt === TTClient.EVENTS.PLAYERS_AUTHENTICATED) {
-            TankTrouble.Statistics._updateStatistics();
+    const usernamesToLookup = TankTrouble.WallOfFame.admins;
+    let modEntries = [];
+    let emptyMessageIndex = 0;
+    const emptyMessage = [
+        "Fetching.",
+        "Fetching..",
+        "Fetching...",
+    ];
+    function fetchModDataAndUpdateUI() {
+        const playerDetailsList = [];
+        let completedRequests = 0;
+        modEntries = [];
+        snippet.find('#mod-activity').empty();
+        snippet.find('#mod-activity').html(`<p class="empty" id="modActivityEmpty"></p>`);
+        const msgElement = document.getElementById("modActivityEmpty");
+        function setNextMessage() {
+            if (msgElement) {
+                msgElement.textContent = emptyMessage[emptyMessageIndex];
+                emptyMessageIndex = (emptyMessageIndex + 1) % emptyMessage.length;
+            }
         }
-    });
+        setNextMessage();
+        clearInterval(window.modActivityEmptyInterval);
+        window.modActivityEmptyInterval = setInterval(setNextMessage, 1000);
+        usernamesToLookup.forEach(username => {
+            Backend.getInstance().getPlayerDetailsByUsername(
+                (result) => {
+                    completedRequests++;
+                    if (
+                        result &&
+                        typeof result.getUsername === 'function' &&
+                        typeof result.getLastLogin === 'function' &&
+                        typeof result.getGmLevel === 'function' &&
+                        result.getGmLevel() >= 1
+                    ) {
+                        playerDetailsList.push(result);
+                    }
+                    if (completedRequests === usernamesToLookup.length) {
+                    clearInterval(window.modActivityEmptyInterval);
+                    snippet.find('#mod-activity').empty();
+                        playerDetailsList
+                        const sorted = playerDetailsList
+                            .sort((a, b) => b.getLastLogin() - a.getLastLogin())
+                            .slice(0, 3)
+                            if (!sorted.length) {
+                            snippet.find('#mod-activity').html(`<p class="empty" id="modActivityEmpty"></p>`);
+                            const msgElement = document.getElementById("modActivityEmpty");
+                            function setNextMessage() {
+                                msgElement.textContent = emptyMessage[emptyMessageIndex];
+                                emptyMessageIndex = (emptyMessageIndex + 1) % emptyMessage.length;
+                            }
+                            setNextMessage();
+                            clearInterval(window.modActivityEmptyInterval);
+                            window.modActivityEmptyInterval = setInterval(setNextMessage, 1000);
+                            return;
+                            }
+                            sorted.forEach(player => {
+                                const username = player.getUsername();
+                                const lastLogin = parseInt(player.getLastLogin(), 10);
+                                const userRow = $(`
+                                    <div class="mod-entry">
+                                        <span class="mod-username"><div>${username}</div></span>
+                                        <span class="mod-last-login" title="${new Date(lastLogin * 1000).toLocaleString()}">${getTimeAgo(lastLogin)}</span>
+                                    </div>
+                                `);
+                                snippet.find('#mod-activity').append(userRow);
 
-    TankTrouble.Statistics._updateStatistics();
+                                modEntries.push({
+                                    lastLogin,
+                                    element: userRow.find('.mod-last-login')
+                                });
+                            });
+                        updateTimeAgoEntries();
+                    }
+                },
+                (errorMessage) => {
+                    completedRequests++;
+                    snippet.find('#mod-activity').append(`<p>Error fetching player details: ${errorMessage}</p>`);
+                },
+                null,
+                username,
+                Caches.getPlayerDetailsCache()
+            );
+        });
+    }
+    function updateTimeAgoEntries() {
+        modEntries.forEach(({ lastLogin, element }) => {
+            element.text(getTimeAgo(lastLogin));
+        });
+    }
+    let nextRefreshTimestamp = null;
+    function scheduleNextRealTimeRefresh() {
+        const now = Date.now();
+        const nextMinute = new Date(now);
+        nextMinute.setSeconds(0);
+        nextMinute.setMilliseconds(0);
+        nextMinute.setMinutes(nextMinute.getMinutes() + 1);
+        nextRefreshTimestamp = nextMinute.getTime();
+        const delay = nextRefreshTimestamp - now;
+        setTimeout(() => {
+            fetchModDataAndUpdateUI();
+            scheduleNextRealTimeRefresh();
+        }, delay);
+    }
+    fetchModDataAndUpdateUI();
+    scheduleNextRealTimeRefresh();
+    setInterval(updateTimeAgoEntries, 60000);
 });

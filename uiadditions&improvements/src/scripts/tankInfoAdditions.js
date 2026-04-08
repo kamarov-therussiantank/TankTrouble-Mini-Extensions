@@ -39,6 +39,7 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.infoBadgesIcon3 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/adminBadge.png"/>'); // Admin
 		TankTrouble.TankInfoBox.infoBadgesIcon4 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/betaBadge.png"/>'); // Beta Tester
 		TankTrouble.TankInfoBox.infoBadgesIcon5 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/classicBadge.png"/>'); // Classic Player
+		TankTrouble.TankInfoBox.infoBadgesIcon6 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/addonsBadge.png"/>'); // Addons Team member
 		TankTrouble.TankInfoBox.infoBannedIcon = $('<img class="banned-Icon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/banned.png"/>'); // Banned Player
  
 		// Create badges
@@ -51,6 +52,8 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.premiumBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon1);
 		TankTrouble.TankInfoBox.kickstarterBadge = $('<div class="kickstarterBadge"/>');
 		TankTrouble.TankInfoBox.kickstarterBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon2);
+		TankTrouble.TankInfoBox.addonsBadge = $('<div class="addonsBadge"/>');
+		TankTrouble.TankInfoBox.addonsBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon6);
 		TankTrouble.TankInfoBox.adminBadge = $('<div class="adminBadge"/>');
 		TankTrouble.TankInfoBox.adminBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon3);
 		TankTrouble.TankInfoBox.bannedIcon = $('<div class="bannedIcon"/>');
@@ -144,6 +147,11 @@ window.whenContentInitialized().then(() => {
 			width: '38px',
 			margin: '0'
 		});
+
+    TankTrouble.TankInfoBox.infoBadgesIcon6.css({
+			width: '38px',
+			margin: '0'
+		});
  
     TankTrouble.TankInfoBox.infoBannedIcon.css({
 			width: '200px',
@@ -169,6 +177,11 @@ window.whenContentInitialized().then(() => {
 			position: 'top',
 			offsetX: 0
 		});
+    
+    TankTrouble.TankInfoBox.addonsBadge.tooltipster({
+			position: 'top',
+			offsetX: 0
+		});
  
 		TankTrouble.TankInfoBox.infoExpDiv.tooltipster({
 			position: 'right',
@@ -181,6 +194,7 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.premiumBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.kickstarterBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.adminBadge);
+		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.addonsBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.bannedIcon);
 		TankTrouble.TankInfoBox.infoBadgesDiv.insertBefore(TankTrouble.TankInfoBox.infoRank);
  
@@ -192,6 +206,7 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.premiumBadge.hide();
 		TankTrouble.TankInfoBox.kickstarterBadge.hide();
 		TankTrouble.TankInfoBox.adminBadge.hide();
+		TankTrouble.TankInfoBox.addonsBadge.hide();
 	});
  
   // Display
@@ -202,6 +217,7 @@ window.whenContentInitialized().then(() => {
         TankTrouble.TankInfoBox.betaTesterBadge.tooltipster('content', 'Beta Tester');
         TankTrouble.TankInfoBox.premiumBadge.tooltipster('content', 'Premium Member');
         TankTrouble.TankInfoBox.kickstarterBadge.tooltipster('content', 'Kickstarter Backer');
+        TankTrouble.TankInfoBox.addonsBadge.tooltipster('content', 'Addons Team Member');
         TankTrouble.TankInfoBox.infoExpDiv.tooltipster('content', 'Classic EXP');
  
         const [,, playerId] = args;
@@ -210,6 +226,7 @@ window.whenContentInitialized().then(() => {
             if (typeof result === 'object') {
                 const playerId = result.getPlayerId();
                 const username = result.getUsername();
+                const addonsTeamMembers = ["kamarov", "commander"].includes(username);
                 const banned = result.getBanned();
                 const classicPlayer = result.getExperience();
                 const premiumMember = result.getPremium();
@@ -246,15 +263,18 @@ window.whenContentInitialized().then(() => {
  
                 // Classic Player badge & Experience progress bar
                 if (classicPlayer && classicPlayer > 0) {
-                TankTrouble.TankInfoBox.infoExpDiv.show();
-				TankTrouble.TankInfoBox.classicPlayerBadge.show();
-
-			// Update the bar and text
-			TankTrouble.TankInfoBox.infoExpText.text(`${exp}`);
- 
+                    TankTrouble.TankInfoBox.infoExpDiv.show();
+                    TankTrouble.TankInfoBox.classicPlayerBadge.show();
+                    TankTrouble.TankInfoBox.infoExpText.text(`${exp}`);
                 } else {
                     TankTrouble.TankInfoBox.infoExpDiv.hide();
                     TankTrouble.TankInfoBox.classicPlayerBadge.hide();
+                }
+
+                if (addonsTeamMembers) {
+                    TankTrouble.TankInfoBox.addonsBadge.show();
+                } else {
+                    TankTrouble.TankInfoBox.addonsBadge.hide();
                 }
  
                 // Display player info or banned message

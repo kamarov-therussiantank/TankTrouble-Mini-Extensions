@@ -1,3 +1,6 @@
+img.disabled {
+    cursor: pointer;
+}
 :root.dark body {
     background: rgb(26, 26, 26)
 }
@@ -87,7 +90,7 @@ tr.tooltipstered {
     left: 5px;
 }
 #modActivitySnippet {
-  height: 225px !important;
+  height: max-content;
 }
 #mod-activity {
     padding: 5px;
@@ -101,22 +104,18 @@ tr.tooltipstered {
 }
 .mod-entry {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
   margin-left: 3px;
   margin-right: 3px;
 }
 .mod-username {
-  font-size: 10px;
+  font-family: 'TankTrouble';
+  font-size: 12px;
 }
 .mod-last-login {
-  font-size: 9px;
-}
-#refresh-timer {
-  position: absolute;
-  bottom: auto;
-  left: 10px
+  font-size: 10px;
 }
 #overlay .messageSpacingBottom {
     display: none !important;
@@ -496,6 +495,7 @@ button.warning {
     margin-bottom: 3px;
 }
 .leaderboard-snippet-list .username {
+    font-family: 'TankTrouble';
     flex: auto;
     display: flex;
     text-decoration: none;
@@ -524,4 +524,125 @@ select#snippetStat {
     right: 170px;
     top: 0;
     cursor: pointer;
+}
+#tank-randomizer-UI {
+  position: relative;
+    top: -100px;
+}
+.randomizer-rows {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.accessory-randomizer-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-right: 16px;
+}
+.paint-randomizer-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.part-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.randomize-button {
+  height: 20px;
+  width: 100px;
+}
+.partSelectAccessory, .partSelectPaint {
+  cursor: pointer;
+  outline: none;
+  width: 80px; /* adjust to fit next to text */
+  border: 1px solid var(--jq-borderColorDefault);
+  border-radius: 5px;
+  background: #efefef;
+  font-weight: 600;
+  font-size: 11px;
+  color: #555;
+  padding: 3px;
+  margin-right: 3px;
+}
+.partSelectAccessory:hover {
+  color: #1a1a1a;
+}
+.partSelectPaint:hover {
+  color: #1a1a1a;
+}
+.partTexts {
+  font-family: TankTrouble;
+  font-size: 12px;
+  color: #e7c811;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  white-space: nowrap;
+}
+#no-saved-tanks {
+    position: relative;
+    left: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#favourites-box {
+    border: 2px #d3d3d3 solid;
+    border-radius: 6px;
+}
+:root.dark #favourites-box {
+    border: 2px #3a3a3a solid !important;
+}
+#favourites-box .content {
+    overflow-y: auto;
+    width: max-content;
+    max-height: 250px;
+    border: none !important;
+    border-radius: 2px;
+}
+#favourites-box .content::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+.player-row {
+    display: flex;
+    align-items: center;
+    background:#cccccc75;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+}
+:root.dark .player-row {
+    background:#1a1a1a75 !important;
+}
+.player-name {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+.player-login {
+    font-size: 12px;
+    opacity: 0.8;
+}
+.player-tank canvas {
+    display: block;
+}
+.player-info {
+    display: flex;
+    flex-direction: column;
+}
+.button.remove-fav {
+    background:#afafaf75;
+    position: relative;
+    width: max-content;
+    cursor: pointer;
+    padding: 2px 5px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+:root.dark .button.remove-fav {
+    background:#11111175;
 }

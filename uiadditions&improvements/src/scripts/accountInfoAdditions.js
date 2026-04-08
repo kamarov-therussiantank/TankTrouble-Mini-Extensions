@@ -12,10 +12,23 @@ function whenContentInitialized() {
     });
 }
 
+window.Loader = class {
+    static interceptFunction(context, funcName, handler, attributes = {}) {
+        const original = Reflect.get(context, funcName);
+        if (typeof original !== 'function') {
+            throw new Error(`Item ${funcName} is not typeof function`);
+        }
+
+        Reflect.defineProperty(context, funcName, {
+            value: (...args) => handler(original.bind(context), ...args),
+            ...attributes
+        });
+    }
+};
+
 window.getTimeAgo = function(unixTimestampInSeconds) {
     const nowSeconds = Math.floor(Date.now() / 1000);
     const secondsAgo = nowSeconds - unixTimestampInSeconds;
-
     const minute = 60;
     const hour = 3600;
     const day = 86400;
@@ -24,25 +37,25 @@ window.getTimeAgo = function(unixTimestampInSeconds) {
     const year = day * 365.25;
 
     if (secondsAgo < minute) {
-        return `${secondsAgo} sec${secondsAgo !== 1 ? 's' : ''} ago`;
+        return `${secondsAgo} seconds${secondsAgo !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < hour) {
         const minutes = Math.floor(secondsAgo / minute);
-        return `${minutes} min${minutes !== 1 ? 's' : ''} ago`;
+        return `${minutes} minutes${minutes !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < day) {
         const hours = Math.floor(secondsAgo / hour);
-        return `${hours} hr${hours !== 1 ? 's' : ''} ago`;
+        return `${hours} hours${hours !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < week) {
         const days = Math.floor(secondsAgo / day);
-        return `${days} day${days !== 1 ? 's' : ''} ago`;
+        return `${days} days${days !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < month) {
         const weeks = Math.floor(secondsAgo / week);
-        return `${weeks} week${weeks !== 1 ? 's' : ''} ago`;
+        return `${weeks} weeks${weeks !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < year) {
         const months = Math.floor(secondsAgo / month);
-        return `${months} month${months !== 1 ? 's' : ''} ago`;
+        return `${months} months${months !== 1 ? 's' : ''} ago`;
     } else {
         const years = Math.floor(secondsAgo / year);
-        return `${years} year${years !== 1 ? 's' : ''} ago`;
+        return `${years} years${years !== 1 ? 's' : ''} ago`;
     }
 }
 
