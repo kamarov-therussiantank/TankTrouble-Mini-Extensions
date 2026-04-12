@@ -1,10 +1,11 @@
+// Favouriting logic
 whenContentInitialized().then(() => {
-    const FAV_KEY = "tt_custom_favourites";
+    const KEY = "favourites";
     function getFavourites() {
-        return JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+        return JSON.parse(localStorage.getItem(KEY) || "[]");
     }
     function setFavourites(list) {
-        localStorage.setItem(FAV_KEY, JSON.stringify(list));
+        localStorage.setItem(KEY, JSON.stringify(list));
     }
     function isFavourite(id) {
         return getFavourites().includes(id);

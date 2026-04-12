@@ -519,69 +519,43 @@ select#snippetStat {
     background: #292929;
     border: #2a2a2a 2px solid;
 }
-.darkmode {
-    position: absolute;
-    right: 170px;
-    top: 0;
-    cursor: pointer;
+#wardrobe {
+    position: relative;
+    display: grid;
+    border: 3px solid #00000050 !important;
+    background: #00000050;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: -50%;
+    gap: 10px;
+    overflow-y: auto;
+    width: 175%;
+    left: -40%;
+    max-height: 200px;
+    padding: 10px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    border-radius: 5px;
 }
-#tank-randomizer-UI {
-  position: relative;
-    top: -100px;
+#wardrobe::-webkit-scrollbar-track {
+    background: transparent !important;
 }
-.randomizer-rows {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+.wardrobe-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 120px;
+    margin: auto;
 }
-.accessory-randomizer-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-right: 16px;
+#wardrobe-buttons {
+    width: max-content;
 }
-.paint-randomizer-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.part-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.randomize-button {
-  height: 20px;
-  width: 100px;
-}
-.partSelectAccessory, .partSelectPaint {
-  cursor: pointer;
-  outline: none;
-  width: 80px; /* adjust to fit next to text */
-  border: 1px solid var(--jq-borderColorDefault);
-  border-radius: 5px;
-  background: #efefef;
-  font-weight: 600;
-  font-size: 11px;
-  color: #555;
-  padding: 3px;
-  margin-right: 3px;
-}
-.partSelectAccessory:hover {
-  color: #1a1a1a;
-}
-.partSelectPaint:hover {
-  color: #1a1a1a;
-}
-.partTexts {
-  font-family: TankTrouble;
-  font-size: 12px;
-  color: #e7c811;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  white-space: nowrap;
+#delete-btn {
+    background: red !important;
+    color: white !important;
 }
 #no-saved-tanks {
     position: relative;

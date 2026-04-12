@@ -1,7 +1,8 @@
+// Favourites box
 whenContentInitialized().then(() => {
-    const FAV_KEY = "tt_custom_favourites";
+    const KEY = "favourites";
     function getFavourites() {
-        return JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+        return JSON.parse(localStorage.getItem(KEY) || "[]");
     }
     const lastLoginTracker = new Map();
     const tankCache = new Map();
@@ -53,10 +54,12 @@ whenContentInitialized().then(() => {
                 top: "20px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                color: "#ffffff",
-                WebkitTextStroke: "1px black",
-                fontFamily: "TankTrouble",
-                fontSize: "16px",
+                background: "rgba(255, 255, 255)",
+                border: "3px solid #d3d3d3",
+                color: "#464646",
+                padding: "10px 16px",
+                borderRadius: "24px",
+                fontSize: "14px",
                 zIndex: 9999,
                 opacity: 0,
                 pointerEvents: "none",
@@ -226,7 +229,7 @@ whenContentInitialized().then(() => {
                     removeBtn.on('click', () => {
                         const currentFavourites = getFavourites();
                         const updatedFavourites = currentFavourites.filter(id => id !== player.playerId);
-                        localStorage.setItem(FAV_KEY, JSON.stringify(updatedFavourites));
+                        localStorage.setItem(KEY, JSON.stringify(updatedFavourites));
                         this.renderList();
                     });
                     const info = $('<div class="player-info"></div>');
@@ -280,8 +283,8 @@ whenContentInitialized().then(() => {
             Object.values(imgs).forEach(img => img.hide());
             if (state in imgs) imgs[state].show();
         };
-        TankTrouble.TankInfoBox.infoFavorites.insertBefore(TankTrouble.TankInfoBox.infoAchievements);
-        TankTrouble.TankInfoBox.infoFavorites.tooltipster({ position: 'top', offsetX: 5 });
+        TankTrouble.TankInfoBox.infoFavorites.insertAfter(TankTrouble.TankInfoBox.infoAchievements);
+        TankTrouble.TankInfoBox.infoFavorites.tooltipster({ position: 'right', offsetX: 5 });
         TankTrouble.TankInfoBox.infoFavorites.on('mouseup', () => {
             const offset = TankTrouble.TankInfoBox.infoFavorites.offset();
             playersOverlay.show(
