@@ -28,7 +28,18 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.tanktrouble.com/*"],
-			"js": ["src/scripts/tankInfoAdditions.js", "src/scripts/accountInfoAdditions.js", "src/scripts/snippets.js", "src/scripts/highResolutionTanks.js", "src/scripts/phaser.min.js", "src/scripts/favourites.js", "src/scripts/favouriting.js", "src/scripts/tankWardrobe.js", "src/scripts/gameUtils.js", "src/scripts/timeUtils.js"],
+			"js": ["src/scripts/tankInfoAdditions.js",
+				"src/scripts/accountInfoAdditions.js",
+				"src/scripts/forumAdditions.js",
+				"src/scripts/snippets.js",
+				"src/scripts/highResolutionTanks.js",
+				"src/scripts/phaser.min.js",
+				"src/scripts/favourites.js",
+				"src/scripts/favouriting.js",
+				"src/scripts/tankWardrobe.js",
+				"src/scripts/gameUtils.js",
+				"src/scripts/timeUtils.js"
+			],
 			"css": ["src/css/style.css"],
 			"run_at": "document_idle",
             "world": "MAIN"
@@ -38,7 +49,7 @@
 
 
 	"web_accessible_resources": [{
-		"resources": [],
+		"resources": ["assets/game/tankSprites.png", "assets/game/tankSprites.json", "assets/game/tankSprites@2x.png", "assets/game/tankSprites@2x.json"],
 		"matches": [ "*://*.tanktrouble.com/*" ]
 	}]
 }

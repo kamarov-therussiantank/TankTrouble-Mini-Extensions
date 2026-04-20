@@ -578,6 +578,14 @@ select#snippetStat {
     border: none !important;
     border-radius: 2px;
 }
+#search-container {
+    background: rgb(238, 238, 238);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+:root.dark #search-container {
+    background: rgb(41, 41, 41);
+}
 #favourites-box .content::-webkit-scrollbar-track {
     background: transparent !important;
 }
@@ -597,7 +605,15 @@ select#snippetStat {
     display: flex;
     justify-content: space-between;
 }
+.player-id {
+    position: relative;
+    left: -34%;
+    font-size: 12px;
+    opacity: 0.8;
+}
 .player-login {
+    position: relative;
+    left: 0%;
     font-size: 12px;
     opacity: 0.8;
 }
