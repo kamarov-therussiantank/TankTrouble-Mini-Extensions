@@ -38,7 +38,7 @@
 				"src/scripts/favourites.js",
 				"src/scripts/favouriting.js",
 				"src/scripts/tankWardrobe.js",
-				"src/scripts/games.js",
+				"src/scripts/gameUI.js",
 				"src/scripts/garageUI.js",
 				"src/scripts/gameUtils.js",
 				"src/scripts/timeUtils.js"
