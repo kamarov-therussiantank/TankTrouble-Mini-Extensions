@@ -28,7 +28,8 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.tanktrouble.com/*"],
-			"js": ["src/scripts/tankInfoAdditions.js",
+			"js": [
+				"src/scripts/tankInfoAdditions.js",
 				"src/scripts/accountInfoAdditions.js",
 				"src/scripts/forumAdditions.js",
 				"src/scripts/snippets.js",
@@ -37,6 +38,7 @@
 				"src/scripts/favourites.js",
 				"src/scripts/favouriting.js",
 				"src/scripts/tankWardrobe.js",
+				"src/scripts/games.js",
 				"src/scripts/gameUtils.js",
 				"src/scripts/timeUtils.js"
 			],
