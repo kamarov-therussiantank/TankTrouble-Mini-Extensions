@@ -151,7 +151,7 @@ whenContentInitialized().then(() => {
     }
     setInterval(checkFavouriteActivity, 1000);
     checkFavouriteActivity();
-    const playersOverlay = {
+    const favouritesBox = {
         container: null,
         background: null,
         content: null,
@@ -196,7 +196,7 @@ whenContentInitialized().then(() => {
             this.content.empty();
             const favourites = getFavourites();
             if (!favourites.length) {
-                this.content.append('<div>No favourite players</div>');
+                this.content.append('<div>No favourites</div>');
                 return;
             }
             const promises = favourites.map(playerId => {
@@ -240,7 +240,7 @@ whenContentInitialized().then(() => {
                     });
                 }
                 if (!players.length) {
-                    this.content.append('<div>No matching players</div>');
+                    this.content.append('<div>No matching username or identifier</div>');
                     return;
                 }
                 players.forEach(player => {
@@ -302,24 +302,45 @@ whenContentInitialized().then(() => {
         TankTrouble.TankInfoBox._updateFavouriteStatus = function () {};
         if (!TankTrouble.TankInfoBox.infoFavorites) {
             TankTrouble.TankInfoBox.infoFavorites = $('<div class="button" title="Favourites"></div>');
-            const standardIcon = $('<img class="standard" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites.png", srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites%402x.png 2x">');
-            TankTrouble.TankInfoBox.infoFavorites.append(standardIcon);
+            const standardIcon = $(`
+                <img class="standard"
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites%402x.png 2x">
+            `);
+            const activeIcon = $(`
+                <img class="active"
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favouritesActive.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favouritesActive%402x.png 2x">
+            `);
+            const disabledIcon = $(`
+                <img class="disabled"
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites%402x.png 2x">
+            `);
+            TankTrouble.TankInfoBox.infoFavorites.append(standardIcon, activeIcon, disabledIcon);
             standardIcon.show();
+            activeIcon.hide();
+            disabledIcon.hide();
         }
         TankTrouble.TankInfoBox._setFavouriteButtonState = function(state) {
-            const imgs = {
-                standard: TankTrouble.TankInfoBox.infoFavorites.find('img.standard'),
-                active: TankTrouble.TankInfoBox.infoFavorites.find('img.active'),
-                disabled: TankTrouble.TankInfoBox.infoFavorites.find('img.disabled')
-            };
-            Object.values(imgs).forEach(img => img.hide());
-            if (state in imgs) imgs[state].show();
+            TankTrouble.TankInfoBox.infoFavorites.find('img').hide();
+            if (state === "active") {
+                TankTrouble.TankInfoBox.infoFavorites.find('.active').css('display', 'inline-block');
+                TankTrouble.TankInfoBox.infoFavorites.find('.standard').css('display', 'inline-block');
+            } else if (state === "disabled") {
+                TankTrouble.TankInfoBox.infoFavorites.find('.disabled').css('display', 'inline-block');
+                TankTrouble.TankInfoBox.infoFavorites.find('.active').css('display', 'none');
+                TankTrouble.TankInfoBox.infoFavorites.find('.standard').css('display', 'none');
+            } else {
+                TankTrouble.TankInfoBox.infoFavorites.find('.standard').css('display', 'inline-block');
+                TankTrouble.TankInfoBox.infoFavorites.find('.active').css('display', 'none');
+            }
         };
         TankTrouble.TankInfoBox.infoFavorites.insertAfter(TankTrouble.TankInfoBox.infoAchievements);
         TankTrouble.TankInfoBox.infoFavorites.tooltipster({ position: 'right', offsetX: 5 });
         TankTrouble.TankInfoBox.infoFavorites.on('mouseup', () => {
             const offset = TankTrouble.TankInfoBox.infoFavorites.offset();
-            playersOverlay.show(
+            favouritesBox.show(
                 TankTrouble.TankInfoBox.playerId,
                 offset.left + TankTrouble.TankInfoBox.infoFavorites.outerWidth() / 2,
                 offset.top + TankTrouble.TankInfoBox.infoFavorites.outerHeight() / 2
