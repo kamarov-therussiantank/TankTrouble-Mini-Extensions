@@ -28,13 +28,13 @@ window.whenContentInitialized().then(() => {
 	Loader.interceptFunction(TankTrouble.TankInfoBox, '_initialize', (original, ...args) => {
 		original(...args);
 		TankTrouble.TankInfoBox.infoBadgesDiv = $('<div class="badge-container"/>');
-		TankTrouble.TankInfoBox.infoBadgesIcon1 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/premiumBadge.png"/>'); // Premium
-		TankTrouble.TankInfoBox.infoBadgesIcon2 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/backerBadge.png"/>'); // Kickstarter
-		TankTrouble.TankInfoBox.infoBadgesIcon3 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/adminBadge.png"/>'); // Admin
-		TankTrouble.TankInfoBox.infoBadgesIcon4 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/betaBadge.png"/>'); // Beta Tester
-		TankTrouble.TankInfoBox.infoBadgesIcon5 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/classicBadge.png"/>'); // Classic Player
-		TankTrouble.TankInfoBox.infoBadgesIcon6 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/addonsBadge.png"/>'); // TankTroubleAddons Team member
-		TankTrouble.TankInfoBox.infoBannedIcon = $('<img class="banned-Icon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/banned.png"/>'); // Banned Player
+		TankTrouble.TankInfoBox.infoBadgesIcon1 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/premiumBadge.png"/>'); // Premium
+		TankTrouble.TankInfoBox.infoBadgesIcon2 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/backerBadge.png"/>'); // Kickstarter
+		TankTrouble.TankInfoBox.infoBadgesIcon3 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/adminBadge.png"/>'); // Admin
+		TankTrouble.TankInfoBox.infoBadgesIcon4 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/betaBadge.png"/>'); // Beta Tester
+		TankTrouble.TankInfoBox.infoBadgesIcon5 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/classicBadge.png"/>'); // Classic Player
+		TankTrouble.TankInfoBox.infoBadgesIcon6 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/addonsBadge.png"/>'); // TankTroubleAddons Team member
+		TankTrouble.TankInfoBox.infoBannedIcon = $('<img class="banned-Icon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/banned.png"/>'); // Banned Player
 		TankTrouble.TankInfoBox.classicPlayerBadge = $('<div class="classicBadge"/>');
 		TankTrouble.TankInfoBox.classicPlayerBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon5);
 		TankTrouble.TankInfoBox.classicPlayerBadge.append(TankTrouble.TankInfoBox.classicPlayerText);
@@ -76,7 +76,7 @@ window.whenContentInitialized().then(() => {
     TankTrouble.TankInfoBox.infoDeathsDiv = $('<td class="deaths tooltipstered"/>');
     TankTrouble.TankInfoBox.infoDeaths = $(`
     <div class="statsContainer">
-        <img class="statsIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/deaths.png" srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/deaths@2x.png 2x"/>
+        <img class="statsIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/deaths.png" srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/deaths@2x.png 2x"/>
         <div class="hasSVG">
             <svg version="1.1" width="58" height="34">
                 <text id="deathsTextOutline" x="1" y="22" text-anchor="start" font-family="Arial Black" font-size="14" fill="none" stroke="black" stroke-linejoin="round" stroke-width="3" letter-spacing="1">N/A</text>

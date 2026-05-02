@@ -305,18 +305,18 @@ whenContentInitialized().then(() => {
             TankTrouble.TankInfoBox.infoFavorites = $('<div class="button" title="Favourites"></div>');
             const standardIcon = $(`
                 <img class="standard"
-                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites.png"
-                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites%402x.png 2x">
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites%402x.png 2x">
             `);
             const activeIcon = $(`
                 <img class="active"
-                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favouritesActive.png"
-                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favouritesActive%402x.png 2x">
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favouritesActive.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favouritesActive%402x.png 2x">
             `);
             const disabledIcon = $(`
                 <img class="disabled"
-                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites.png"
-                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/favourites%402x.png 2x">
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites%402x.png 2x">
             `);
             TankTrouble.TankInfoBox.infoFavorites.append(standardIcon, activeIcon, disabledIcon);
             standardIcon.show();

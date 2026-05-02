@@ -34,6 +34,7 @@
 				"src/scripts/forumAdditions.js",
 				"src/scripts/snippets.js",
 				"src/scripts/highResolutionTanks.js",
+				"src/scripts/badges.js",
 				"src/scripts/phaser.min.js",
 				"src/scripts/favourites.js",
 				"src/scripts/favouriting.js",
