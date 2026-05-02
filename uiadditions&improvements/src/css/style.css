@@ -312,6 +312,83 @@ a {
     background: #292929 !important;
     border: #ffffff00 2px solid !important;
 }
+.forum .thread .tanks.tankCount2 {
+    position: relative;
+    left: 8%;
+}
+.forum .thread .tanks.tankCount3 {
+    position: relative;
+    left: 16%;
+}
+.forum .thread .tankCount2 ~ .container .bubble {
+    left: 8% !important;
+    width: 92% !important;
+}
+.forum .thread .tankCount3 ~ .container .bubble {
+    left: 16% !important;
+    width: 84% !important;
+}
+.forum .reply {
+    margin-bottom: 30px !important;
+}
+.forum .reply.left .tanks.tankCount2 {
+    position: relative;
+    left: 10%;
+    margin-right: 80px;
+}
+.forum .reply.left .tanks.tankCount3 {
+    position: relative;
+    left: 20%;
+    margin-right: 160px;
+}
+.forum .reply.right .tanks.tankCount2 {
+    position: relative;
+    right: 10%;
+    margin-left: 80px;
+}
+.forum .reply.right .tanks.tankCount3 {
+    position: relative;
+    right: 20%;
+    margin-left: 160px;
+}
+.forum .tank.coCreator1 {
+    margin-right: 75px;
+}
+.forum .tank.coCreator2 {
+    margin-right: 150px;
+}
+.forum .reply.left .tank.coCreator1 {
+    margin-right: 75px !important;
+}
+.forum .reply.left .tank.coCreator2 {
+    margin-right: 150px !important;
+}
+.forum .reply.right .tank.coCreator1 {
+    margin-left: 75px !important;
+}
+.forum .reply.right .tank.coCreator2 {
+    margin-left: 150px !important;
+}
+.forum .reply-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+.forum .reply.left .reply-row {
+    flex-direction: row;
+}
+.forum .reply.right .reply-row {
+    flex-direction: row-reverse;
+}
+.forum .tanks {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.forum .tank {
+    position: relative;
+}
 .forum .thread.selectable:not(.editing) .bubble:hover {
     background: #e2e2e2 !important
 }
