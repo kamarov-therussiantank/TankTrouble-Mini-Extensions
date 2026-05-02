@@ -30,7 +30,6 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.infoBadgesDiv = $('<div class="badge-container"/>');
 		TankTrouble.TankInfoBox.infoBadgesIcon1 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/premiumBadge.png"/>'); // Premium
 		TankTrouble.TankInfoBox.infoBadgesIcon2 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/backerBadge.png"/>'); // Kickstarter
-		TankTrouble.TankInfoBox.infoBadgesIcon3 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/adminBadge.png"/>'); // Admin
 		TankTrouble.TankInfoBox.infoBadgesIcon4 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/betaBadge.png"/>'); // Beta Tester
 		TankTrouble.TankInfoBox.infoBadgesIcon5 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/classicBadge.png"/>'); // Classic Player
 		TankTrouble.TankInfoBox.infoBadgesIcon6 = $('<img class="badgeIcon" src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/addonsBadge.png"/>'); // TankTroubleAddons Team member
@@ -46,8 +45,6 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.kickstarterBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon2);
 		TankTrouble.TankInfoBox.addonsBadge = $('<div class="addonsBadge"/>');
 		TankTrouble.TankInfoBox.addonsBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon6);
-		TankTrouble.TankInfoBox.adminBadge = $('<div class="adminBadge"/>');
-		TankTrouble.TankInfoBox.adminBadge.append(TankTrouble.TankInfoBox.infoBadgesIcon3);
 		TankTrouble.TankInfoBox.bannedIcon = $('<div class="bannedIcon"/>');
 		TankTrouble.TankInfoBox.bannedIcon.append(TankTrouble.TankInfoBox.infoBannedIcon);
 		TankTrouble.TankInfoBox.infoExpDiv = $('<div class="exp tooltipstered"/>');
@@ -108,10 +105,6 @@ window.whenContentInitialized().then(() => {
 			width: '38px',
 			margin: '0'
 		});
-    TankTrouble.TankInfoBox.infoBadgesIcon3.css({
-			width: '102px',
-			margin: '0'
-		});
     TankTrouble.TankInfoBox.infoBadgesIcon4.css({
 			width: '38px',
 			margin: '0'
@@ -156,7 +149,6 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.betaTesterBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.premiumBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.kickstarterBadge);
-		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.adminBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.addonsBadge);
 		TankTrouble.TankInfoBox.infoBadgesDiv.append(TankTrouble.TankInfoBox.bannedIcon);
 		TankTrouble.TankInfoBox.infoBadgesDiv.insertBefore(TankTrouble.TankInfoBox.infoRank);
@@ -166,12 +158,11 @@ window.whenContentInitialized().then(() => {
 		TankTrouble.TankInfoBox.betaTesterBadge.hide();
 		TankTrouble.TankInfoBox.premiumBadge.hide();
 		TankTrouble.TankInfoBox.kickstarterBadge.hide();
-		TankTrouble.TankInfoBox.adminBadge.hide();
 		TankTrouble.TankInfoBox.addonsBadge.hide();
 	});
     Loader.interceptFunction(TankTrouble.TankInfoBox, 'show', (original, ...args) => {
         original(...args);
-        TankTrouble.TankInfoBox.classicPlayerBadge.tooltipster('content', 'Classic Player');
+        TankTrouble.TankInfoBox.classicPlayerBadge.tooltipster('content', 'Classic');
         TankTrouble.TankInfoBox.betaTesterBadge.tooltipster('content', 'Beta Tester');
         TankTrouble.TankInfoBox.premiumBadge.tooltipster('content', 'Premium Member');
         TankTrouble.TankInfoBox.kickstarterBadge.tooltipster('content', 'Kickstarter Backer');
@@ -187,7 +178,6 @@ window.whenContentInitialized().then(() => {
                 const classicPlayer = result.getExperience();
                 const premiumMember = result.getPremium();
                 const betaTester = result.getBeta();
-                const adminMember = result.getGmLevel();
                 const deaths = result.getDeaths();
                 const lastLogin = result.getLastLogin();
                 const exp = classicPlayer;
@@ -250,7 +240,6 @@ window.whenContentInitialized().then(() => {
                 }
                 premiumMember ? TankTrouble.TankInfoBox.premiumBadge.show() : TankTrouble.TankInfoBox.premiumBadge.hide();
                 betaTester ? TankTrouble.TankInfoBox.betaTesterBadge.show() : TankTrouble.TankInfoBox.betaTesterBadge.hide();
-                adminMember ? TankTrouble.TankInfoBox.adminBadge.show() : TankTrouble.TankInfoBox.adminBadge.hide();
             } else {
                 TankTrouble.TankInfoBox.infoBadgesDiv.hide();
             }
