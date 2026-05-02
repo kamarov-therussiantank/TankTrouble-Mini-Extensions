@@ -128,6 +128,9 @@ UITankIcon.classMethods({
         if (barrelAccessory instanceof HTMLImageElement) {
             compositedContext.drawImage(barrelAccessory, 0, 0, canvas.width, canvas.height);
         }
+        if (badge instanceof HTMLImageElement) {
+            compositedContext.drawImage(badge, 0, 0, canvas.width, canvas.height);
+        }
         if (canvas.width != this.outlineBuffer.width || canvas.height != this.outlineBuffer.height) {
             this.outlineBuffer.width = canvas.width;
             this.outlineBuffer.height = canvas.height;

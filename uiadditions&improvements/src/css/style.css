@@ -37,7 +37,7 @@ img.disabled {
     height: 30px;
 }
 .exp-bar {
-    background-image: image-set(url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/expBar.png) 1x, url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/images/assets/tankInfo/expBar@2x.png) 2x);
+    background-image: image-set(url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/expBar.png) 1x, url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/expBar@2x.png) 2x);
     background-size: 10px 22px;
     height: 100%;
 }

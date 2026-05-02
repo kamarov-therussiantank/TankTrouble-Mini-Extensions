@@ -102,11 +102,11 @@ UITankIconLoader.method('_queueImage', function (
         let src, srcset;
         if (isBadge) {
             src =
-                'https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/' +
+                'https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/' +
                 imageName +
                 '.png';
             srcset =
-                'https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/' +
+                'https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/' +
                 imageName +
                 '@2x.png 2x';
         } else {
