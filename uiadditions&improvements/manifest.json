@@ -32,6 +32,7 @@
 				"src/scripts/tankInfoAdditions.js",
 				"src/scripts/accountInfoAdditions.js",
 				"src/scripts/forumAdditions.js",
+				"src/scripts/settings.js",
 				"src/scripts/snippets.js",
 				"src/scripts/highResolutionTanks.js",
 				"src/scripts/badges.js",

@@ -1,3 +1,4 @@
+UIConstants.DISABLE_TANK_BADGES = false;
 UITankIcon.classMethod('loadPlayerTankIcon', function (canvas, size, playerId, onReady, context) {
     Backend.getInstance().getPlayerDetails(function (result) {
         if (typeof result === 'object') {
@@ -21,6 +22,7 @@ UITankIcon.classMethod('loadPlayerTankIcon', function (canvas, size, playerId, o
                 const admin = gmLevel >= 1;
                 const kickstarter = backers.includes(username);
                 let badge = null;
+                if (!UIConstants.DISABLE_TANK_BADGES) {
                     if (kickstarter && admin) {
                         badge = '1';
                     } else if (kickstarter) {
@@ -28,6 +30,7 @@ UITankIcon.classMethod('loadPlayerTankIcon', function (canvas, size, playerId, o
                     } else if (admin) {
                         badge = '1';
                     }
+                }
                 UITankIcon.loadTankIcon(
                     canvas,
                     size,
