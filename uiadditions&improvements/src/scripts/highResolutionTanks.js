@@ -1,3 +1,4 @@
+UIConstants.DISABLE_HIGH_RESOLUTION_TANKS = false;
 var UITankIcon = Classy.newClass().name("UITankIcon");
 UITankIcon.classFields({
     compositedBuffer: $("<canvas></canvas>")[0],
@@ -144,5 +145,16 @@ UITankIcon.classMethods({
         var width = UIConstants.TANK_ICON_OUTLINE_WIDTH;
         var diagWidth = Math.sqrt((width * width) / 2.0);
         context.drawImage(this.compositedBuffer, 0, 0);
+        if (UIConstants.DISABLE_HIGH_RESOLUTION_TANKS === false) {
+            context.drawImage(this.outlineBuffer, -width, 0);
+        context.drawImage(this.outlineBuffer, -diagWidth, -diagWidth);
+        context.drawImage(this.outlineBuffer, -diagWidth, diagWidth);
+        context.drawImage(this.outlineBuffer, 0, width);
+        context.drawImage(this.outlineBuffer, 0, -width);
+        context.drawImage(this.outlineBuffer, diagWidth, -diagWidth);
+        context.drawImage(this.outlineBuffer, diagWidth, diagWidth);
+        context.drawImage(this.outlineBuffer, width, 0);
+        context.drawImage(this.compositedBuffer, 0, 0);
+        }
     }
 });

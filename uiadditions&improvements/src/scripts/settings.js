@@ -60,10 +60,12 @@ TankTrouble.SettingsBox = {
         this.settingsTabTop = $("<div class='tab topRight'></div>");
         this.settingsTitleDiv = $("<div class='spaced'>Settings:</div>");
         this.settingsForm = $("<form class='spaced'></form>");
+        this.highResolutionCheckbox = $("<div><input id='highResolutionTanks' type='checkbox'/><label class='subheadline' for='highResolutionTanks'>High resolution tanks</label></div>");
         this.tankBadgesCheckbox = $("<div><input id='tankBadges' type='checkbox'/><label class='subheadline' for='tankBadges'>Tank badges</label></div>");
         this.systemMessagesCheckbox = $("<div><input id='systemMessages' type='checkbox'/><label class='subheadline' for='systemMessages'>System messages</label></div>");
         this.settingsForm.append(this.systemMessagesCheckbox);
         this.settingsForm.append(this.tankBadgesCheckbox);
+        this.settingsForm.append(this.highResolutionCheckbox);
         this.settingsServerTitleDiv = $("<div class='spaced'>Server:</div>");
         this.settingsServerForm = $("<form class='spaced'></form>");
         this.settingsServerSelect = $("<select/>");
@@ -136,14 +138,18 @@ TankTrouble.SettingsBox = {
         setTimeout(function() {
             self._refreshServerStats();
         }, UIConstants.INITIAL_SERVER_STATS_DELAY);
+        this._setHighResolutionTanks(Cookies.get("highResolutionTanks") === "true");
         this._setTankBadges(Cookies.get("tankBadges") === "true");
-        if (!TankTrouble.ChatBox._originalAddSystemMessage) {
-            TankTrouble.ChatBox._originalAddSystemMessage = TankTrouble.ChatBox.addSystemMessage;
-        }
         this._setSystemMessages(Cookies.get("systemMessages") === "true");
+        this.highResolutionCheckbox.find("input").on("change", function() {
+            self._setHighResolutionTanks(this.checked);
+        });
         this.tankBadgesCheckbox.find("input").on("change", function() {
             self._setTankBadges(this.checked);
         });
+        if (!TankTrouble.ChatBox._originalAddSystemMessage) {
+            TankTrouble.ChatBox._originalAddSystemMessage = TankTrouble.ChatBox.addSystemMessage;
+        }
         this.systemMessagesCheckbox.find("input").on("change", function() {
             self._setSystemMessages(this.checked);
         });
@@ -254,6 +260,13 @@ TankTrouble.SettingsBox = {
     _setQuality: function(quality) {
         this.settingsQualitySelect.val(quality);
         this.settingsQualitySelect.iconselectmenu("refresh");
+    },
+    _setHighResolutionTanks: function(disabled) {
+        this.highResolutionCheckbox.find("input").prop("checked", disabled);
+        UIConstants.DISABLE_HIGH_RESOLUTION_TANKS = disabled;
+        Cookies.set("highResolutionTanks", disabled, { expires: 365 });
+        try { reloadGame(); } catch(e) {}
+        try { reloadPlayerPanel(); } catch(e) {}
     },
     _setTankBadges: function(disabled) {
         this.tankBadgesCheckbox.find("input").prop("checked", disabled);
