@@ -150,7 +150,7 @@ whenContentInitialized().then(() => {
             });
         });
     }
-    setInterval(checkFavouriteActivity, 1000);
+    setInterval(checkFavouriteActivity, 5000);
     checkFavouriteActivity();
     const favouritesBox = {
         container: null,
