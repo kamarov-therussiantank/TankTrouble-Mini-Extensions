@@ -302,49 +302,35 @@ whenContentInitialized().then(() => {
         original(...args);
         TankTrouble.TankInfoBox._updateFavouriteStatus = function () {};
         if (!TankTrouble.TankInfoBox.infoFavorites) {
-            TankTrouble.TankInfoBox.infoFavorites = $('<div class="button" title="Favourites"></div>');
-            const standardIcon = $(`
+            TankTrouble.TankInfoBox.infoFavorites = $('<div class="button favourites" title="Favourites"></div>');
+            TankTrouble.TankInfoBox.infoFavorites.append(`
                 <img class="standard"
                     src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites.png"
                     srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites%402x.png 2x">
             `);
-            const activeIcon = $(`
+            TankTrouble.TankInfoBox.infoFavorites.append(`
                 <img class="active"
                     src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favouritesActive.png"
                     srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favouritesActive%402x.png 2x">
             `);
-            const disabledIcon = $(`
+            TankTrouble.TankInfoBox.infoFavorites.append(`
                 <img class="disabled"
                     src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites.png"
                     srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites%402x.png 2x">
             `);
-            TankTrouble.TankInfoBox.infoFavorites.append(standardIcon, activeIcon, disabledIcon);
-            standardIcon.show();
-            activeIcon.hide();
-            disabledIcon.hide();
+            TankTrouble.TankInfoBox.infoFavorites.on('mouseon', function() {
+                if (!$(this).hasClass('disabled')) {
+                    $(this).addClass('active');
+                }
+            });
         }
-        TankTrouble.TankInfoBox._setFavouriteButtonState = function(state) {
-            TankTrouble.TankInfoBox.infoFavorites.find('img').hide();
-            if (state === "active") {
-                TankTrouble.TankInfoBox.infoFavorites.find('.active').css('display', 'inline-block');
-                TankTrouble.TankInfoBox.infoFavorites.find('.standard').css('display', 'inline-block');
-            } else if (state === "disabled") {
-                TankTrouble.TankInfoBox.infoFavorites.find('.disabled').css('display', 'inline-block');
-                TankTrouble.TankInfoBox.infoFavorites.find('.active').css('display', 'none');
-                TankTrouble.TankInfoBox.infoFavorites.find('.standard').css('display', 'none');
-            } else {
-                TankTrouble.TankInfoBox.infoFavorites.find('.standard').css('display', 'inline-block');
-                TankTrouble.TankInfoBox.infoFavorites.find('.active').css('display', 'none');
-            }
-        };
         TankTrouble.TankInfoBox.infoFavorites.insertAfter(TankTrouble.TankInfoBox.infoAchievements);
         TankTrouble.TankInfoBox.infoFavorites.tooltipster({ position: 'right', offsetX: 5 });
         TankTrouble.TankInfoBox.infoFavorites.on('mouseup', () => {
-            const offset = TankTrouble.TankInfoBox.infoFavorites.offset();
             favouritesBox.show(
                 TankTrouble.TankInfoBox.playerId,
-                offset.left + TankTrouble.TankInfoBox.infoFavorites.outerWidth() / 2,
-                offset.top + TankTrouble.TankInfoBox.infoFavorites.outerHeight() / 2
+                TankTrouble.TankInfoBox.infoFavorites.offset().left + TankTrouble.TankInfoBox.infoFavorites.outerWidth() / 2,
+                TankTrouble.TankInfoBox.infoFavorites.offset().top + TankTrouble.TankInfoBox.infoFavorites.outerHeight() / 2
             );
         });
     });
@@ -352,14 +338,17 @@ whenContentInitialized().then(() => {
         original(...args);
         const [,, playerId] = args;
         TankTrouble.TankInfoBox.playerId = playerId;
-        const actionButtons = [
-            TankTrouble.TankInfoBox.infoVirtualShop,
+        const otherButtons = [
+            TankTrouble.TankInfoBox.infoSignUp,
+            TankTrouble.TankInfoBox.infoShop,
             TankTrouble.TankInfoBox.infoGarage,
             TankTrouble.TankInfoBox.infoAchievements,
             TankTrouble.TankInfoBox.infoAccount,
+            TankTrouble.TankInfoBox.infoAdmin,
+            TankTrouble.TankInfoBox.infoAdminLookup,
             TankTrouble.TankInfoBox.infoLogOut
         ];
-        const hasVisible = actionButtons.some(btn => btn && btn.is(':visible'));
+        const hasVisible = otherButtons.some(btn => btn && btn.is(':visible'));
         TankTrouble.TankInfoBox.infoFavorites.toggle(hasVisible);
     });
 });

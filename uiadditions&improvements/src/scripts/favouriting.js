@@ -81,18 +81,18 @@ whenContentInitialized().then(() => {
                 TankTrouble.TankInfoBox.infoFavouriteStarOff.hide();
                 return;
             }
-            const blockingButtons = [
-                TankTrouble.TankInfoBox.infoAdminLookup,
+            const otherButtons = [
                 TankTrouble.TankInfoBox.infoSignUp,
+                TankTrouble.TankInfoBox.infoShop,
+                TankTrouble.TankInfoBox.infoGarage,
+                TankTrouble.TankInfoBox.infoAchievements,
                 TankTrouble.TankInfoBox.infoAccount,
                 TankTrouble.TankInfoBox.infoAdmin,
+                TankTrouble.TankInfoBox.infoAdminLookup,
                 TankTrouble.TankInfoBox.infoLogOut
             ];
-            const anyBlockingVisible =
-                blockingButtons.some(
-                    btn => btn.is(':visible')
-                );
-            if (anyBlockingVisible) {
+            const hasVisible = otherButtons.some( btn => btn.is(':visible'));
+            if (hasVisible) {
                 TankTrouble.TankInfoBox.infoFavouriteStarOn.hide();
                 TankTrouble.TankInfoBox.infoFavouriteStarOff.hide();
                 return;
