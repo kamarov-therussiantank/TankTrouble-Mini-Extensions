@@ -245,20 +245,20 @@ whenContentInitialized().then(() => {
                     return;
                 }
                 players.forEach(player => {
-        const row = $('<div class="player-row"></div>');
-        const canvas = createTankCanvas(player);
-        const tankWrapper = $('<div class="player-tank"></div>');
-        tankWrapper.append(canvas);
-        const name = $(`<div class="player-name">${player.username}</div>`);
-        const id = $(`<div class="player-id">#${player.playerId}</div>`);
-        const login = $(`
-            <div class="player-login">
-                ${player.lastLogin 
-                    ? `Last seen: ${new Date(player.lastLogin * 1000).toLocaleString()}`
-                    : 'Never Logged in'}
-            </div>
-        `);
-        const removeBtn = $('<div class="button remove-fav">Remove</div>');
+                    const row = $('<div class="player-row"></div>');
+                    const canvas = createTankCanvas(player);
+                    const tankWrapper = $('<div class="player-tank"></div>');
+                    tankWrapper.append(canvas);
+                    const name = $(`<div class="player-name">${player.username}</div>`);
+                    const id = $(`<div class="player-id">#${player.playerId}</div>`);
+                    const login = $(`
+                        <div class="player-login">
+                            ${player.lastLogin 
+                                ? `Last seen: ${new Date(player.lastLogin * 1000).toLocaleString()}`
+                                : 'Never Logged in'}
+                        </div>
+                    `);
+                    const removeBtn = $('<div class="button remove-fav">Remove</div>');
                     removeBtn.on('click', () => {
                         const currentFavourites = getFavourites();
                         const updatedFavourites = currentFavourites.filter(id => id !== player.playerId);
