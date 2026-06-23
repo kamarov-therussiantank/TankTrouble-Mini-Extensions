@@ -76,11 +76,6 @@ whenContentInitialized().then(() => {
     init: function() {
         var self = this;
         setInterval(function() {self._updateStatistics();}, 5000);
-        ClientManager.getClient().addEventListener((evt) => {
-            if (evt === TTClient.EVENTS.PLAYERS_AUTHENTICATED) {
-                self._updateStatistics();
-            }
-        });
     }
 };
 TankTrouble.Statistics.init();
