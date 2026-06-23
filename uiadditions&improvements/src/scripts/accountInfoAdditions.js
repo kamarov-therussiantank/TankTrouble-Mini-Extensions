@@ -35,7 +35,6 @@ window.getTimeAgo = function(unixTimestampInSeconds) {
     const week = day * 7;
     const month = day * 30.44;
     const year = day * 365.25;
-
     if (secondsAgo < minute) {
         return `${secondsAgo} seconds${secondsAgo !== 1 ? 's' : ''} ago`;
     } else if (secondsAgo < hour) {
@@ -58,16 +57,11 @@ window.getTimeAgo = function(unixTimestampInSeconds) {
         return `${years} years${years !== 1 ? 's' : ''} ago`;
     }
 }
-
 whenContentInitialized().then(() => {
 	Loader.interceptFunction(TankTrouble.AccountOverlay, '_initialize', (original, ...args) => {
 		original(...args);
-
-		// Create container div
 		TankTrouble.AccountOverlay.accountContainer = $('<div class="account-details"></div>');
 		TankTrouble.AccountOverlay.accountContainer.insertAfter(TankTrouble.AccountOverlay.accountHeadline);
-
-		// Create and append each detail div inside the container
 		TankTrouble.AccountOverlay.accountCreated = $('<div></div>').appendTo(TankTrouble.AccountOverlay.accountContainer);
 		TankTrouble.AccountOverlay.accountCountry = $('<div></div>').appendTo(TankTrouble.AccountOverlay.accountContainer);
 		TankTrouble.AccountOverlay.accountID = $('<div></div>').appendTo(TankTrouble.AccountOverlay.accountContainer);
@@ -75,19 +69,15 @@ whenContentInitialized().then(() => {
 		TankTrouble.AccountOverlay.accountNewsSubscriber = $('<div></div>').appendTo(TankTrouble.AccountOverlay.accountContainer);
 		TankTrouble.AccountOverlay.accountLastLogin = $('<div></div>').appendTo(TankTrouble.AccountOverlay.accountContainer);
 	});
-
 	Loader.interceptFunction(TankTrouble.AccountOverlay, 'show', (original, ...args) => {
 		original(...args);
-
 	Backend.getInstance().getPlayerDetails(result => {
             if (typeof result === 'object') {
                 const accountVerification = result.getVerified();
                 const accountID = result.getPlayerId();
                 const created = new Date(result.getCreated() * 1000);
                 const accountLastLogin = result.getLastLogin();
-
                 const formatted = new Intl.DateTimeFormat('en-GB', { dateStyle: 'full' }).format(created);
-
                 TankTrouble.AccountOverlay.accountCreated.text(`Created: ${formatted}`);
                 TankTrouble.AccountOverlay.accountID.text(`Player ID: #${accountID}`);
                 TankTrouble.AccountOverlay.accountVerification.text(`Verified: ${accountVerification ? 'Yes' : 'No'}`);

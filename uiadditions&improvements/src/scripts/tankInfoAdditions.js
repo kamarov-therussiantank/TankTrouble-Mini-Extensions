@@ -162,7 +162,7 @@ window.whenContentInitialized().then(() => {
 	});
     Loader.interceptFunction(TankTrouble.TankInfoBox, 'show', (original, ...args) => {
         original(...args);
-        TankTrouble.TankInfoBox.classicPlayerBadge.tooltipster('content', 'Classic');
+        TankTrouble.TankInfoBox.classicPlayerBadge.tooltipster('content', 'Classic Player');
         TankTrouble.TankInfoBox.betaTesterBadge.tooltipster('content', 'Beta Tester');
         TankTrouble.TankInfoBox.premiumBadge.tooltipster('content', 'Premium Member');
         TankTrouble.TankInfoBox.kickstarterBadge.tooltipster('content', 'Kickstarter Backer');
