@@ -285,16 +285,13 @@ a {
 #chat:not(.open) form{
     z-index: -1;
     position: relative;
-	  animation: moveLeft 0.1s cubic-bezier(0.79, -0.02, 0.32, 0.98) forwards;
+	animation: moveLeft 0.1s cubic-bezier(0.79, -0.02, 0.32, 0.98) forwards;
 }
 #chat:is(.opening, .open) form {
     z-index: -1;
     position: relative;
     padding-right: 0;
     animation: moveRight 0.3s cubic-bezier(0.79, -0.02, 0.32, 0.98) forwards;
-}
-#chat:is(.opening, .open) .content, #chat:is(.opening, .open) textarea {
-    width: 230px !important;
 }
 #chat {
     -webkit-filter: drop-shadow(0 7px 4px rgba(0, 0, 0, .5));
