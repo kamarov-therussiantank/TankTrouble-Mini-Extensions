@@ -4,7 +4,7 @@ whenContentInitialized().then(() => {
     <div id="activitySnippet" class="snippet">
         <div class="header">Activity:</div>
         <div id="playersOnline">...</div>
-        <div id="gamesMade">...</div>
+        <div id="gamesMade"></div>
     </div>
     `);
     $('#secondaryContent').append(snippet);
