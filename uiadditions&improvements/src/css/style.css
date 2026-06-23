@@ -113,7 +113,7 @@ tr.tooltipstered {
 }
 #mod-activity {
     padding: 5px;
-    background: rgb(200, 200, 200);
+    background: rgba(190, 190, 190);
     border-radius: 5px;
     border-top: 2px solid rgba(113, 113, 113, 0.17);
     margin: 5px;
@@ -143,12 +143,19 @@ tr.tooltipstered {
   padding: 5px;
 }
 #playersOnline {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 3px;
+  font-family: 'TankTrouble';
+  font-size: 36px;
+  margin-top: 12px;
+  margin-bottom: 5px;
 }
 #gamesMade {
   margin-bottom: 3px;
+}
+.positive {
+    color: #00ff00;
+}
+.negative {
+    color: #ff0000;
 }
 @keyframes moveLeft {
   0% {
