@@ -73,9 +73,7 @@ whenContentInitialized().then(() => {
     Loader.interceptFunction(TankTrouble.TankInfoBox, 'show', (original, ...args) => {
             original(...args);
             const playerId = String(args[2]);
-            const localPlayers =
-                Users.getAllPlayerIds()
-                .map(String);
+            const localPlayers = Users.getAllPlayerIds().map(String);
             if (localPlayers.includes(playerId)) {
                 TankTrouble.TankInfoBox.infoFavouriteStarOn.hide();
                 TankTrouble.TankInfoBox.infoFavouriteStarOff.hide();

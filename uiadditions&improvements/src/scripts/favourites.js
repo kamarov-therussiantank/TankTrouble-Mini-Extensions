@@ -174,7 +174,7 @@ whenContentInitialized().then(() => {
             this.background.hide();
             this.searchInput.css({
                 width: "90%",
-                margin: "5px",
+                margin: "6px",
                 padding: "4px",
                 borderRadius: "6px",
                 border: "2px solid #ffffff00",
@@ -249,8 +249,7 @@ whenContentInitialized().then(() => {
                     const canvas = createTankCanvas(player);
                     const tankWrapper = $('<div class="player-tank"></div>');
                     tankWrapper.append(canvas);
-                    const name = $(`<div class="player-name">${player.username}</div>`);
-                    const id = $(`<div class="player-id">#${player.playerId}</div>`);
+                    const name = $(`<div class="player-name">${player.username} #${player.playerId}</div>`);
                     const login = $(`
                         <div class="player-login">
                             ${player.lastLogin 
@@ -267,7 +266,6 @@ whenContentInitialized().then(() => {
                     });
                     const info = $('<div class="player-info"></div>');
                     info.append(name);
-                    info.append(id);
                     info.append(login);
                     info.append(removeBtn);
                     row.append(tankWrapper);
@@ -302,7 +300,7 @@ whenContentInitialized().then(() => {
         original(...args);
         TankTrouble.TankInfoBox._updateFavouriteStatus = function () {};
         if (!TankTrouble.TankInfoBox.infoFavorites) {
-            TankTrouble.TankInfoBox.infoFavorites = $('<div class="button favourites" title="Favourites"></div>');
+            TankTrouble.TankInfoBox.infoFavorites = $('<div class="button" title="Favourites"></div>');
             TankTrouble.TankInfoBox.infoFavorites.append(`
                 <img class="standard"
                     src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites.png"
@@ -315,8 +313,8 @@ whenContentInitialized().then(() => {
             `);
             TankTrouble.TankInfoBox.infoFavorites.append(`
                 <img class="disabled"
-                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites.png"
-                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favourites%402x.png 2x">
+                    src="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favouritesDisabled.png"
+                    srcset="https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/favouritesDisabled%402x.png 2x">
             `);
             TankTrouble.TankInfoBox.infoFavorites.on('mouseon', function() {
                 if (!$(this).hasClass('disabled')) {
