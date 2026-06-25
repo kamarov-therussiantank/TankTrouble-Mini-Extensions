@@ -40,6 +40,7 @@
 				"src/scripts/phaser.min.js",
 				"src/scripts/favourites.js",
 				"src/scripts/favouriting.js",
+				"src/scripts/playerLookup.js",
 				"src/scripts/tankWardrobe.js",
 				"src/scripts/gameUI.js",
 				"src/scripts/garageUI.js",

@@ -41,7 +41,11 @@
 .about-container {
     position: relative;
     z-index: 2;
-    font-size: 12px;
+    font-family: 'Arial';
+    color: white;
+    -webkit-text-stroke: 3px black;
+    paint-order: stroke fill;
+    stroke-linejoin: round;
 }
 .bannedText-container {
     position: relative;
@@ -703,4 +707,112 @@ select#snippetStat {
 }
 :root.dark .button.remove-fav {
     background:#11111175;
+}
+.playerLookup-tank canvas {
+    position: relative;
+    top: -22px;
+    display: block;
+    margin-bottom: 5px;
+}
+#playerLookup-username {
+    position: relative;
+    z-index: 1;
+    font-family: 'TankTrouble';
+    font-size: 24px;
+    color: white;
+    -webkit-text-stroke: 4px black;
+    paint-order: stroke fill;
+    stroke-linejoin: round;
+}
+.player-details {
+    position: relative;
+    top: -44px;
+    font-family: 'Arial';
+    color: white;
+    -webkit-text-stroke: 3px black;
+    paint-order: stroke fill;
+    stroke-linejoin: round;
+}
+.player-stats {
+    position: relative;
+    top: -25px;
+    margin-left: 3px;
+    margin-right: 3px;
+    background: rgba(68, 68, 68, 0.125);
+    border-radius: 10px;
+    border-top: 2px solid rgba(113, 113, 113, 0.125);
+    font-family: 'Arial';
+    color: white;
+    -webkit-text-stroke: 3px black;
+    paint-order: stroke fill;
+    stroke-linejoin: round;
+}
+.playerLookup-badges {
+    position: relative;
+    top: -40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.lookupBadge {
+    width: 38px;
+    height: auto;
+    image-rendering: auto;
+}
+.lookup-progress {
+    position: relative;
+    top: -25px;
+    height: 30px;
+    margin:1px 0;
+}
+.lookup-progress-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Arial';
+    color: white;
+    -webkit-text-stroke: 3px black;
+    paint-order: stroke fill;
+    stroke-linejoin: round;
+    font-size: 14px;
+    margin-bottom: 1px;
+}
+.lookup-progress-bg {
+    position: relative;
+    overflow: hidden;
+    top: -20px;
+    left: 25%;
+    width: 50%;
+    height: 22px;
+    background: rgba(0, 0, 0, .1);
+    border-radius: 6px;
+}
+.lookup-progress-fill {
+    height:100%;
+    background-image: url(../assets/images/tankInfo/rankProgressBar.png);
+}
+.lookup-progress-fill.xp {
+    background-image: url(../assets/images/tankInfo/xpProgressBar.png);
+}
+.lookup-progress-fill.exp {
+    background-image: image-set(url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/expBar.png) 1x, url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Tools/refs/heads/main/uiadditions%26improvements/src/assets/images/tankInfo/expBar@2x.png) 2x);
+}
+.playerLookup-raw {
+    margin-top: 10px;
+}
+.rawDataContent {
+    max-height: 100px;
+    overflow: auto;
+    background: #111111c5;
+    color: #ffa42c;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space:pre-wrap;
+    margin-block: 0;
+}
+.toggleRawData {
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
 }
