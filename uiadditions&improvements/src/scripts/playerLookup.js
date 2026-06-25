@@ -294,14 +294,14 @@ whenContentInitialized().then(() => {
         }
         TankTrouble.TankInfoBox.infoPlayerLookup.insertBefore(TankTrouble.TankInfoBox.infoGameJoin);
         TankTrouble.TankInfoBox.infoPlayerLookup.tooltipster({position: 'top', offsetX: 5});
-        if (TankTrouble.TankInfoBox.username) {
-            TankTrouble.TankInfoBox.infoPlayerLookup.tooltipster('content', 'Lookup ' + TankTrouble.TankInfoBox.username);
-        }
     });
     Loader.interceptFunction(TankTrouble.TankInfoBox, 'show', (original, ...args) => {
         original(...args);
         const [,, playerId] = args;
         TankTrouble.TankInfoBox.playerId = playerId;
+        if (TankTrouble.TankInfoBox.username) {
+            TankTrouble.TankInfoBox.infoPlayerLookup.tooltipster('content', 'Lookup ' + TankTrouble.TankInfoBox.username);
+        }
         const otherButtons = [
             TankTrouble.TankInfoBox.infoGameJoin,
         ];
