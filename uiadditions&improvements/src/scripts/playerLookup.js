@@ -99,7 +99,7 @@ whenContentInitialized().then(() => {
                     const tankWrapper = $('<div class="playerLookup-tank"></div>');
                     const canvas = createTankCanvas(playerData);
                     tankWrapper.append(canvas);
-                    const info = $('<div class="player-info"></div>');
+                    const info = $('<div class="playerLookup-info"></div>');
                     const detailsLeft = $('<div class="player-details-left"></div>');
                     const detailsRight = $(`<div class="player-details-right"></div>`);
                     const username = $(`
