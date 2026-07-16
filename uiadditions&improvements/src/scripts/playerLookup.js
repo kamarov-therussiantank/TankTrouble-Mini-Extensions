@@ -143,7 +143,7 @@ whenContentInitialized().then(() => {
                     });
                     const rankBar = $(`
                     <div class="lookup-progress">
-                        <div class="lookup-progress-label">${playerData.rankTitle} (${playerData.rank.toLocaleString()} ${playerData.rankNext ? '/' + playerData.rankNext.toLocaleString() : ''})</div>
+                        <div class="lookup-progress-label">${playerData.rankTitle} (${playerData.rank.toLocaleString()}${playerData.rankNext ? '/' + playerData.rankNext.toLocaleString() : ''})</div>
                         <div class="lookup-progress-bg rank">
                             <div class="lookup-progress-fill rank" style="width:${rankPercent}%"></div>
                         </div>
