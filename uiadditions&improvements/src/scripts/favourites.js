@@ -163,22 +163,19 @@ whenContentInitialized().then(() => {
             this.container = $('<div class="box noselect" id="favourites-box"></div>');
             this.content = $('<div class="content"></div>');
             this.background = $('<div class="boxbackground"></div>');
-            this.searchContainer = $('<div id="search-container"></div>');;
-            this.searchInput = $('<input type="text" placeholder="Enter username or identifier..." class="fav-search">');
-            this.container.append(this.searchContainer);
-            this.searchContainer.append(this.searchInput);
+            this.searchInput = $('<input type="text" placeholder="Username or identifier..." class="ui-button ui-corner-all ui-widget">');
+            this.container.append(this.searchInput);
             this.container.append(this.content);
             $('body').append(this.background);
             $('body').append(this.container);
             this.container.hide();
             this.background.hide();
             this.searchInput.css({
-                width: "90%",
+                width: "50%",
                 margin: "6px",
                 padding: "4px",
-                borderRadius: "6px",
-                border: "2px solid #ffffff00",
-                fontSize: "14px"
+                fontSize: "14px",
+                outline: "none"
             });
             let searchTimeout;
             this.searchInput.on("input", (e) => {
@@ -283,7 +280,7 @@ whenContentInitialized().then(() => {
             this.background.fadeIn(200);
             this.container.css({
                 left: x + 50,
-                top: y - 230,
+                top: y - 250,
                 position: 'absolute',
                 transform: 'scale(0.1)'
             });

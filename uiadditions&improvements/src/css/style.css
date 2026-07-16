@@ -362,6 +362,16 @@ a {
 .forum .tank {
     position: relative;
 }
+.forum .playerUsername {
+	left: -5px;
+	top: -12px;
+	position: relative;
+    text-align: center;
+    color: #fff;
+    -webkit-text-stroke: 3px #000;
+    paint-order: stroke fill;
+	display: block;
+}
 .forum .thread.selectable:not(.editing) .bubble:hover {
     background: #e2e2e2 !important
 }
@@ -538,13 +548,6 @@ button.warning {
     color: #fff;
     background: #292929;
 }
-.forum .playerUsername {
-    margin-top: 4px;
-    text-align: center;
-    color: #fff;
-    -webkit-text-stroke: 3px #000;
-    paint-order: stroke fill;
-}
 .leaderboard-snippet-list {
     list-style: none;
     padding: 7px;
@@ -634,37 +637,33 @@ select#snippetStat {
     align-items: center;
 }
 #favourites-box {
-    border-radius: 12px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #ccc 10%, #999 90%) !important;
+}
+#favourites-box .ui-button {
+    margin: 6px 0 0 0 !important;
+    border: 1px solid #d3d3d3;
+    background: #e6e6e6 url(https://code.jquery.com/ui/1.11.4/themes/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
+    font-weight: normal;
+    color: #555555;
 }
 #favourites-box .content {
     overflow-y: auto;
+    margin: 6px;
     width: max-content;
     max-height: 250px;
+    background: none !important;
     border: none !important;
 }
-#search-container {
-    position: relative;
-    top: 3px;
-    background: rgb(204, 204, 204);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-}
-:root.dark #search-container {
-    background: rgb(41, 41, 41);
-}
 #favourites-box .content::-webkit-scrollbar {
-    width: 8px;
-    background: transparent;
+    width: 4px;
 }
 #favourites-box .content::-webkit-scrollbar-track {
     background: transparent !important;
 }
 #favourites-box .content::-webkit-scrollbar-thumb {
     background: #44444490;
-    border-radius: 4px;
-}
-#favourites-box .content::-webkit-scrollbar-corner {
-    background: transparent;
+    border-radius: 2px;
 }
 .player-row {
     display: flex;
