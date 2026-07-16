@@ -713,6 +713,7 @@ select#snippetStat {
 #playerLookup-playerId {
     margin-top: 4px;
     font-family: Arial;
+    font-size: 16px;
     color: white;
     -webkit-text-stroke: 2px black;
     paint-order: stroke fill;
@@ -722,8 +723,9 @@ select#snippetStat {
     margin: 15px auto 0;
     border-collapse: separate;
     border-spacing: 6px 3px;
-    color: #fff;
     font-family: Arial;
+    font-size: 16px;
+    color: #fff;
     -webkit-text-stroke: 2px #000;
     paint-order: stroke fill;
     stroke-linejoin: round;
@@ -767,9 +769,9 @@ select#snippetStat {
 .lookup-progress-bg {
     position: relative;
     top: -20px;
-    left: 25%;
+    left: 15%;
     height: 22px;
-    width: 50%;
+    width: 70%;
     overflow: hidden;
     border-radius: 6px;
     background: rgba(0,0,0,.1);
