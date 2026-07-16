@@ -37,35 +37,25 @@ whenContentInitialized().then(() => {
         tankCache.set(key, canvas);
         return canvas;
     }
-    const playerLookupBox = {
-        container: null,
-        background: null,
+    TankTrouble.PlayerLookupOverlay = {
+        wrapper: null,
         content: null,
         initialized: false,
         showing: false,
+        playerId: null,
         _initialize() {
-            this.container = $('<div class="box noselect" id="playerLookup-box"></div>');
+            this.wrapper = $('<div class="playerLookupOverlay centre"></div>');
             this.content = $('<div class="content"></div>');
-            this.background = $('<div class="boxbackground"></div>');
-            this.container.append(this.content);
-            $('body').append(this.background);
-            $('body').append(this.container);
-            this.container.hide();
-            this.background.hide();
-            this.background.on('click', () => {
-                if (this.showing) {
-                    this.hide();
-                }
-            });
+            this.wrapper.append(this.content);
             this.initialized = true;
         },
         renderPlayer(playerId) {
             this.content.empty();
-            this.content.append('<div>Loading...</div>');
+            this.content.append('<div></div>');
             Backend.getInstance().getPlayerDetails(
                 result => {
                     if (typeof result !== 'object') {
-                        this.content.html('<div>Failed to load player data</div>');
+                        this.content.html('<div>Failed to load player details</div>');
                         return;
                     }
                     const rank = result.getRank ? result.getRank() : 0;
@@ -82,6 +72,7 @@ whenContentInitialized().then(() => {
                         victories: result.getVictories ? result.getVictories() : 0,
                         deaths: result.getDeaths ? result.getDeaths() : 0,
                         suicides: result.getSuicides ? result.getSuicides() : 0,
+                        defeats: result.getDeaths && result.getSuicides ? result.getDeaths() - result.getSuicides() : 0,
                         gmLevel: result.getGmLevel ? result.getGmLevel() : null,
                         creationDate: result.getCreated ? new Date(result.getCreated() * 1000) : null,
                         country: result.getCountry ? result.getCountry() : null,
@@ -92,7 +83,6 @@ whenContentInitialized().then(() => {
                         classic: result.getExperience ? result.getExperience () : 0,
                         addonsTeamMember: ["kamarov", "commander"].includes(result.getUsername()),
                         rawData: result.data || {},
-
                         turretColour: result.getTurretColour(),
                         baseColour: result.getBaseColour(),
                         treadColour: result.getTreadColour(),
@@ -102,7 +92,6 @@ whenContentInitialized().then(() => {
                         backAccessory: result.getBackAccessory(),
                         treadAccessory: result.getTreadAccessory(),
                         backgroundAccessory: result.getBackgroundAccessory(),
-                        badge: result.getBadge()
                     };
                     const rankPercent = playerData.rankNext ? Math.min((playerData.rank / playerData.rankNext) * 100, 100) : 100;
                     const xpPercent = playerData.xpNext ? Math.min((playerData.xp / playerData.xpNext) * 100, 100) : 100;
@@ -111,11 +100,17 @@ whenContentInitialized().then(() => {
                     const canvas = createTankCanvas(playerData);
                     tankWrapper.append(canvas);
                     const info = $('<div class="player-info"></div>');
-                    const details = $(`
-                    <div class="player-details">
-                        <div id="playerLookup-username">${playerData.username}</div>
-                        <div id="playerLookup-playerId">#${playerData.playerId}</div>
-                    </div>
+                    const detailsLeft = $('<div class="player-details-left"></div>');
+                    const detailsRight = $(`<div class="player-details-right"></div>`);
+                    const username = $(`
+                        <div id="playerLookup-username">
+                            ${playerData.username}
+                        </div>
+                    `);
+                    const playerId = $(`
+                        <div id="playerLookup-playerId">
+                            #${playerData.playerId}
+                        </div>
                     `);
                     const badges = $('<div class="playerLookup-badges"></div>');
                     if (playerData.classic > 0) {
@@ -184,6 +179,14 @@ whenContentInitialized().then(() => {
                             <td>Deaths:</td>
                             <td>${playerData.deaths.toLocaleString()}</td>
                         </tr>
+                        <tr>
+                            <td>Defeats:</td>
+                            <td>${playerData.defeats.toLocaleString()}</td>
+                        </tr>
+                        <tr>
+                            <td>Suicides:</td>
+                            <td>${playerData.suicides.toLocaleString()}</td>
+                        </tr>
                         ${
                             playerData.gmLevel !== null ? 
                             `<tr>
@@ -194,11 +197,11 @@ whenContentInitialized().then(() => {
                         }
                         <tr>
                             <td>Created:</td>
-                            <td>${ playerData.creationDate ? playerData.creationDate.toLocaleDateString() : 'Unknown'}</td>
+                            <td>${ playerData.creationDate ? playerData.creationDate.toLocaleDateString() : 'N/A'}</td>
                         </tr>
                         <tr>
                             <td>Country:</td>
-                            <td>${ playerData.country ? playerData.country : 'Unknown'}</td>
+                            <td>${ playerData.country ? playerData.country : 'N/A'}</td>
                         </tr>
                         <tr>
                             <td>Verified:</td>
@@ -206,20 +209,23 @@ whenContentInitialized().then(() => {
                         </tr>
                         <tr>
                             <td>Last Login:</td>
-                            <td>${playerData.lastLogin ? new Date(playerData.lastLogin * 1000).toLocaleString() : 'Never'}</td>
+                            <td>${playerData.lastLogin ? new Date(playerData.lastLogin * 1000).toLocaleString() : 'N/A'}</td>
                         </tr>
-
                     </table>
                     `);
-                    info.append(tankWrapper);
-                    info.append(details);
-                    info.append(badges);
-                    info.append(rankBar);
+                    detailsRight.append(tankWrapper);
+                    detailsRight.append(username);
+                    detailsRight.append(playerId);
+                    detailsRight.append(badges);
+                    detailsLeft.append(rankBar);
                     if (playerData.exp > 0) {
-                        info.append(expBar);
+                        detailsLeft.append(expBar);
                     }
-                    info.append(xpBar);
-                    info.append(stats);
+                    detailsLeft.append(xpBar);
+                    detailsLeft.append(stats);
+                    info.append(detailsLeft);
+                    info.append(detailsRight);
+                    this.content.empty();
                     this.content.append(info);
                 },
                 () => {
@@ -230,34 +236,28 @@ whenContentInitialized().then(() => {
                 Caches.getPlayerDetailsCache()
             );
         },
-        show(playerId, x, y) {
+        show(params) {
             if (!this.initialized) {
                 this._initialize();
             }
             this.showing = true;
-            this.renderPlayer(playerId);
-            this.container.show();
-            this.background.fadeIn(200);
-            this.container.css({
-                position: 'fixed',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%) scale(0.1)',
-                opacity: 0
-            });
-            this.container.animate({
-                opacity: 1
-            }, 200);
-            setTimeout(() => {
-                this.container.css({
-                    transform: 'translate(-50%, -50%) scale(1)'
-                });
-            }, 10);
+            this.playerId = params.playerId;
+            this.renderPlayer(this.playerId);
         },
         hide() {
-            this.container.fadeOut(200);
-            this.background.fadeOut(200);
             this.showing = false;
+            this.content.empty();
+        },
+        getContents() {
+            if (!this.initialized)
+                this._initialize();
+            return this.wrapper;
+        },
+        shouldHide() {
+            return true;
+        },
+        canBeCancelled() {
+            return true;
         }
     };
     Loader.interceptFunction(TankTrouble.TankInfoBox, '_initialize', (original, ...args) => {
@@ -286,9 +286,7 @@ whenContentInitialized().then(() => {
                 }
             });
             TankTrouble.TankInfoBox.infoPlayerLookup.on('mouseup', () => {
-                playerLookupBox.show(
-                    TankTrouble.TankInfoBox.playerId
-                );
+                OverlayManager.pushOverlay(TankTrouble.PlayerLookupOverlay, {playerId: TankTrouble.TankInfoBox.playerId});
                 TankTrouble.TankInfoBox.hide();
             });
         }
@@ -300,7 +298,7 @@ whenContentInitialized().then(() => {
         const [,, playerId] = args;
         TankTrouble.TankInfoBox.playerId = playerId;
         if (TankTrouble.TankInfoBox.username) {
-            TankTrouble.TankInfoBox.infoPlayerLookup.tooltipster('content', 'Lookup ' + TankTrouble.TankInfoBox.username);
+            TankTrouble.TankInfoBox.infoPlayerLookup.tooltipster('content', 'Look up ' + TankTrouble.TankInfoBox.username);
         }
         const otherButtons = [
             TankTrouble.TankInfoBox.infoGameJoin,

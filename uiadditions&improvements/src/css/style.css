@@ -693,7 +693,21 @@ select#snippetStat {
 }
 .player-info {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.player-details-left {
+    margin-left: 20%;
+    width: 100%;
+}
+.player-details-right {
+    margin-right: 20%;
+    width: 100%;
+    display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .button.remove-fav {
     background:#66666675;
@@ -708,52 +722,47 @@ select#snippetStat {
     background:#11111175;
 }
 .playerLookup-tank canvas {
-    position: relative;
-    top: -22px;
-    display: block;
-    margin-bottom: 5px;
+    transform: rotateY(180deg);
 }
 #playerLookup-username {
-    position: relative;
-    z-index: 1;
-    font-family: 'TankTrouble';
-    font-size: 24px;
+    font-family: "TankTrouble";
+    font-size: 30px;
     color: white;
     -webkit-text-stroke: 4px black;
     paint-order: stroke fill;
-    stroke-linejoin: round;
+    text-align: center;
 }
-.player-details {
-    position: relative;
-    top: -44px;
-    font-family: 'Arial';
+#playerLookup-playerId {
+    margin-top: 4px;
+    font-family: Arial;
     color: white;
-    -webkit-text-stroke: 3px black;
+    -webkit-text-stroke: 2px black;
     paint-order: stroke fill;
-    stroke-linejoin: round;
+    text-align: center;
 }
 .player-stats {
-    position: relative;
-    top: -25px;
-    margin-left: 3px;
-    margin-right: 3px;
-    background: rgba(68, 68, 68, 0.125);
-    border-radius: 10px;
-    border-top: 2px solid rgba(113, 113, 113, 0.125);
-    font-family: 'Arial';
-    color: white;
-    -webkit-text-stroke: 3px black;
+    margin: 15px auto 0;
+    border-collapse: separate;
+    border-spacing: 6px 3px;
+    color: #fff;
+    font-family: Arial;
+    -webkit-text-stroke: 2px #000;
     paint-order: stroke fill;
     stroke-linejoin: round;
 }
+.player-stats td:first-child {
+    text-align: left;
+    padding-right: 15px;
+}
+.player-stats td:last-child {
+    text-align: right;
+}
 .playerLookup-badges {
-    position: relative;
-    top: -40px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 4px;
+    margin-bottom: 12px;
 }
 .lookupBadge {
     width: 38px;
@@ -762,7 +771,7 @@ select#snippetStat {
 }
 .lookup-progress {
     position: relative;
-    top: -25px;
+    margin-bottom: 12px;
     height: 30px;
     margin:1px 0;
 }
@@ -779,13 +788,13 @@ select#snippetStat {
 }
 .lookup-progress-bg {
     position: relative;
-    overflow: hidden;
     top: -20px;
     left: 25%;
-    width: 50%;
     height: 22px;
-    background: rgba(0, 0, 0, .1);
+    width: 50%;
+    overflow: hidden;
     border-radius: 6px;
+    background: rgba(0,0,0,.1);
 }
 .lookup-progress-fill {
     height:100%;
