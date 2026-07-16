@@ -121,8 +121,7 @@ whenContentInitialized().then(() => {
                                 frontAccessory: result.getFrontAccessory(),
                                 backAccessory: result.getBackAccessory(),
                                 treadAccessory: result.getTreadAccessory(),
-                                backgroundAccessory: result.getBackgroundAccessory(),
-                                badge: result.getBadge()
+                                backgroundAccessory: result.getBackgroundAccessory()
                             });
                         } else {
                             resolve(null);
@@ -214,8 +213,7 @@ whenContentInitialized().then(() => {
                                     frontAccessory: result.getFrontAccessory(),
                                     backAccessory: result.getBackAccessory(),
                                     treadAccessory: result.getTreadAccessory(),
-                                    backgroundAccessory: result.getBackgroundAccessory(),
-                                    badge: result.getBadge()
+                                    backgroundAccessory: result.getBackgroundAccessory()
                                 });
                             } else {
                                 resolve({ playerId, username: `Player ${playerId}`, lastLogin: 0 });
@@ -251,7 +249,7 @@ whenContentInitialized().then(() => {
                         <div class="player-login">
                             ${player.lastLogin 
                                 ? `Last seen: ${new Date(player.lastLogin * 1000).toLocaleString()}`
-                                : 'Never Logged in'}
+                                : 'N/A'}
                         </div>
                     `);
                     const removeBtn = $('<div class="button remove-fav">Remove</div>');
