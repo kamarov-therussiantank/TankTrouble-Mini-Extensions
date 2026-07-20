@@ -21,7 +21,7 @@
     background-image: url(../assets/images/header/background.png);
 }
 :root.dark #header {
-    background-image: url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/background1.png);
+    background-image: url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/background.png);
 }
 #gameTab img {
     padding: 60px 0px 0px 380px;
