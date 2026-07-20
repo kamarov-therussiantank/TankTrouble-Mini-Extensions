@@ -17,12 +17,122 @@
     z-index: -1 !important;
     right: -1000px !important;
 }
+#header {
+    background-image: url(../assets/images/header/background.png);
+}
+:root.dark #header {
+    background-image: url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/background1.png);
+}
+#gameTab img {
+    padding: 60px 0px 0px 380px;
+    width: 0px !important;
+    height: 0px !important;
+}
+#shopTab img,
+#newsTab img,
+#forumTab img {
+  padding: 60px 0px 0px 140px;
+  width: 0px !important;
+  height: 0px !important;
+}
+#gameTab img.selected {
+    padding: 60px 0px 0px 380px;
+    width: 0px !important;
+    height: 0px !important;
+}
+#shopTab img.selected,
+#newsTab img.selected,
+#forumTab img.selected {
+    padding: 60px 0px 0px 140px;
+    width: 0px !important;
+    height: 0px !important;
+}
+#gameTab img {
+  background-image: image-set(url("../assets/images/header/tab1Selected@2x.png") 2x);
+}
+#gameTab img.deselected {
+  background-image: image-set(url("../assets/images/header/tab1@2x.png") 2x);
+}
+:root.dark #gameTab img {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab1Selected@2x.png") 2x);
+}
+:root.dark #gameTab img.deselected {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab1@2x.png") 2x);
+}
+#shopTab img {
+  background-image: image-set(url("../assets/images/header/tab2Selected@2x.png") 2x);
+}
+#shopTab img.deselected {
+  background-image: image-set(url("../assets/images/header/tab2@2x.png") 2x);
+}
+:root.dark #shopTab img {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab2Selected@2x.png") 2x);
+}
+:root.dark #shopTab img.deselected {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab2@2x.png") 2x);
+}
+#newsTab img {
+  background-image: image-set(url("../assets/images/header/tab3Selected@2x.png") 2x);
+}
+#newsTab img.deselected {
+  background-image: image-set(url("../assets/images/header/tab3@2x.png") 2x);
+}
+:root.dark #newsTab img {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab3Selected@2x.png") 2x);
+}
+:root.dark #newsTab img.deselected {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab3@2x.png") 2x);
+}
+#forumTab img {
+  background-image: image-set(url("../assets/images/header/tab4Selected@2x.png") 2x);
+}
+#forumTab img.deselected {
+  background-image: image-set(url("../assets/images/header/tab4@2x.png") 2x);
+}
+:root.dark #forumTab img {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab4Selected@2x.png") 2x);
+}
+:root.dark #forumTab img.deselected {
+  background-image: image-set(url("https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/tab4@2x.png") 2x);
+}
 :root.dark body {
-    background: rgb(26, 26, 26)
+    color: #fff;
+    background: #1a1a1a
 }
 :root.dark .snippet {
     color: #fff;
+    background: linear-gradient(#292929, #1f1f1f);
+}
+:root.dark .ui-state-default, :root.dark .ui-widget-content .ui-state-default, :root.dark .ui-widget-header .ui-state-default {
+    border: 1px solid #121212;
+    background: #1d1d1d url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/ui-bg_glass_75_1d1d1d_1x400.png) 50% 50% repeat-x;
+    color: #e5e5e5;
+}
+:root.dark .tooltipster-default {
+    color: #fff;
+    background: linear-gradient(to bottom, rgb(41, 41, 41), rgb(32, 32, 32));
+}
+:root.dark .tooltipster-arrow-left span,:root.dark .tooltipster-arrow-right span {
+    background: linear-gradient(-45deg, rgb(41, 41, 41) -100%, rgb(32, 32, 32) 200%);
+}
+:root.dark .tooltipster-arrow-top span,:root.dark .tooltipster-arrow-top-right span,:root.dark .tooltipster-arrow-top-left span {
     background: linear-gradient(rgb(41, 41, 41), rgb(32, 32, 32));
+}
+:root.dark .tooltipster-arrow-bottom span {
+    background: linear-gradient(rgb(41, 41, 41), rgb(32, 32, 32));
+}
+:root.dark .box .tab.bottom {
+	background: linear-gradient(-45deg, rgb(16 16 16) 70%, rgb(36 36 36) 300%) !important;
+}
+:root.dark .box .tab.topRight {
+	background: linear-gradient(-45deg, rgb(16 16 16) -300%, rgb(36 36 36) 30%) !important;
+}
+:root.dark .box .tab.left,
+:root.dark .box .tab.right {
+	background: linear-gradient(-45deg, rgb(16 16 16) -400%, rgb(36 36 36) 90%) !important;
+}
+:root.dark button.disabled {
+	background: linear-gradient(to bottom, rgb(51 51 51), rgb(25 25 25));
 }
 .exp.tooltipstered {
     position: relative;
@@ -49,7 +159,6 @@
 }
 .bannedText-container {
     position: relative;
-    z-index: 2;
     font-size: 12px;
     margin: 20px 0 20px 0;
 }
@@ -114,12 +223,13 @@ tr.tooltipstered {
 }
 #mod-activity {
     padding: 5px;
-    background: rgba(190, 190, 190);
     border-radius: 5px;
-    border-top: 2px solid rgba(113, 113, 113, 0.17);
+    border-top: 2px solid #7171712b;
+    background: #1a1a1a1e;
     margin: 5px;
 }
 :root.dark #mod-activity {
+    border-top: 2px solid #1b1b1b2b;
     background: #1a1a1abb;
 }
 .mod-entry {
@@ -139,9 +249,6 @@ tr.tooltipstered {
 }
 #overlay .messageSpacingBottom {
     display: none !important;
-}
-#serverSnippet #data {
-  padding: 5px;
 }
 #playersOnline {
   font-family: 'TankTrouble';
@@ -184,10 +291,10 @@ a {
     margin-top: 7px;
 }
 :root.dark #tankinfo .content {
-    background: #292929;
+    background: linear-gradient(to bottom, #242424 10%, #101010 90%);
 }
 :root.dark .box.noselect .content {
-    background: #292929 !important;
+    background: linear-gradient(to bottom, #242424 10%, #101010 90%) !important;
 }
 #tankinfo table {
     background: #44444420;
@@ -196,7 +303,7 @@ a {
     margin: 8px 0 0 0;
 }
 :root.dark #tankinfo table {
-    background: #1a1a1a20;
+    background: #0c0c0c50;
     border-radius: 10px;
     border-top: 2px solid #10101050;
 }
@@ -240,8 +347,10 @@ a {
     margin-top: -1px !important;
 }
 :root.dark #chat form {
-    color: #fff;
     background: rgb(55 55 55 / 80%);
+}
+:root.dark #chat textarea {
+    color: #fff
 }
 #chat.global form {
     background: #68c5ff;
@@ -521,10 +630,12 @@ button.warning {
 }
 #forumSearchInput {
     width: 60%;
+    margin-bottom: 5px;
     position: relative;
     background: #eee;
     border: #d5d5d5 2px solid;
     border-radius: 5px;
+    outline: none;
 }
 #forumSearchSuggestions {
     position:absolute;
@@ -548,16 +659,6 @@ button.warning {
     color: #fff;
     background: #292929;
 }
-select#snippetStat {
-    width: 80%;
-    margin-bottom: 5px;
-    border-radius: 3px;
-}
-:root.dark select#snippetStat {
-    color: #fff;
-    background: #292929;
-    border: #2a2a2a 2px solid;
-}
 #wardrobe {
     position: relative;
     display: grid;
@@ -579,8 +680,15 @@ select#snippetStat {
     mask-size: 100% 100%;
     border-radius: 5px;
 }
+#wardrobe::-webkit-scrollbar {
+    width: 4px;
+}
 #wardrobe::-webkit-scrollbar-track {
     background: transparent !important;
+}
+#wardrobe::-webkit-scrollbar-thumb {
+    background: #77777790;
+    border-radius: 2px;
 }
 .wardrobe-item {
     display: flex;
@@ -605,14 +713,23 @@ select#snippetStat {
 }
 #favourites-box {
     border-radius: 5px;
-    background: linear-gradient(to bottom, #ccc 10%, #999 90%) !important;
+    background: linear-gradient(to bottom, #ccc 10%, #999 90%);
+}
+:root.dark #favourites-box {
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #242424 10%, #101010 90%);
 }
 #favourites-box .ui-button {
-    margin: 6px 0 0 0 !important;
+    margin: 6px 0 0 0;
     border: 1px solid #d3d3d3;
     background: #e6e6e6 url(https://code.jquery.com/ui/1.11.4/themes/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png) 50% 50% repeat-x;
     font-weight: normal;
     color: #555555;
+}
+:root.dark #favourites-box .ui-button {
+    border: 1px solid #121212;
+    background: #1d1d1d url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/ui-bg_glass_75_1d1d1d_1x400.png) 50% 50% repeat-x;
+    color: #e5e5e5;
 }
 #favourites-box .content {
     overflow-y: auto;
@@ -642,7 +759,8 @@ select#snippetStat {
     margin-bottom: 4px;
 }
 :root.dark .player-row {
-    background:#1a1a1a20 !important;
+    color:#fff;
+    background:#0c0c0c30 !important;
 }
 .player-info {
     display: flex;
@@ -692,12 +810,13 @@ select#snippetStat {
     position: relative;
     width: max-content;
     cursor: pointer;
+    margin-top: 5px;
     padding: 2px 5px;
     border-radius: 6px;
     font-size: 12px;
 }
 :root.dark .button.remove-fav {
-    background:#11111175;
+    background:#1111119a;
 }
 .playerLookup-tank canvas {
     transform: rotateY(180deg);

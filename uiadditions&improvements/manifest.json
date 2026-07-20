@@ -35,7 +35,7 @@
 				"src/scripts/settings.js",
 				"src/scripts/activity.js",
 				"src/scripts/modActivity.js",
-				"src/scripts/highResolutionTanks.js",
+				"src/scripts/tankIcon.js",
 				"src/scripts/badges.js",
 				"src/scripts/phaser.min.js",
 				"src/scripts/favourites.js",

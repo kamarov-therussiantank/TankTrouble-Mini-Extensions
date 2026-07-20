@@ -31,9 +31,12 @@ TankTrouble.SettingsBox = {
     settingsQualityForm: null,
     settingsQualitySelect: null,
     settingsQualityOptions: [],
+    settingsThemeTitleDiv: null,
+    settingsThemeForm: null,
+    settingsThemeSelect: null,
+    settingsThemeOptions: [],
     settingsExtraTitleDiv: null,
     settingsExtraForm: null,
-    cameraShakeCheckbox: null,
     settingsBackground: null,
     refreshServerStatsInterval: null,
     showing: false,
@@ -60,12 +63,10 @@ TankTrouble.SettingsBox = {
         this.settingsTabTop = $("<div class='tab topRight'></div>");
         this.settingsTitleDiv = $("<div class='spaced'>Settings:</div>");
         this.settingsForm = $("<form class='spaced'></form>");
-        this.highResolutionCheckbox = $("<div><input id='highResolutionTanks' type='checkbox'/><label class='subheadline' for='highResolutionTanks'>High resolution tanks</label></div>");
-        this.tankBadgesCheckbox = $("<div><input id='tankBadges' type='checkbox'/><label class='subheadline' for='tankBadges'>Tank badges</label></div>");
         this.systemMessagesCheckbox = $("<div><input id='systemMessages' type='checkbox'/><label class='subheadline' for='systemMessages'>System messages</label></div>");
+        this.tankBadgesCheckbox = $("<div><input id='tankBadges' type='checkbox'/><label class='subheadline' for='tankBadges'>Tank badges</label></div>");
         this.settingsForm.append(this.systemMessagesCheckbox);
         this.settingsForm.append(this.tankBadgesCheckbox);
-        this.settingsForm.append(this.highResolutionCheckbox);
         this.settingsServerTitleDiv = $("<div class='spaced'>Server:</div>");
         this.settingsServerForm = $("<form class='spaced'></form>");
         this.settingsServerSelect = $("<select/>");
@@ -82,6 +83,11 @@ TankTrouble.SettingsBox = {
         this.settingsQualityOptions.push($("<option selected value='auto' data-imagesrc='" + g_url("assets/images/header/pingTimeNoConnection.png") + "' data-imagesrcset='" + g_url("assets/images/header/pingTimeNoConnection@2x.png") + " 2x' data-description=' (N/A fps)'>Auto</option>"));
         this.settingsQualityOptions.push($("<option value='high'>High</option>"));
         this.settingsQualityOptions.push($("<option value='low'>Low</option>"));
+        this.settingsThemeTitleDiv = $("<div class='spaced'>Theme:</div>");
+        this.settingsThemeForm = $("<form class='spaced'></form>");
+        this.settingsThemeSelect = $("<select/>");
+        this.settingsThemeOptions.push($("<option selected value='light'>Normal</option>"));
+        this.settingsThemeOptions.push($("<option value='dark'>Dark</option>"));
         this.settingsBackground = $("<div class='boxbackground'></div>");
         for (var i = 0; i < this.settingsServerOptions.length; ++i) {
             this.settingsServerSelect.append(this.settingsServerOptions[i]);
@@ -91,6 +97,10 @@ TankTrouble.SettingsBox = {
             this.settingsQualitySelect.append(this.settingsQualityOptions[i]);
         }
         this.settingsQualityForm.append(this.settingsQualitySelect);
+        for (var i = 0; i < this.settingsThemeOptions.length; ++i) {
+            this.settingsThemeSelect.append(this.settingsThemeOptions[i]);
+        }
+        this.settingsThemeForm.append(this.settingsThemeSelect);
         this.settingsContent.append(this.settingsTabTop);
         this.settingsContent.append(this.settingsTitleDiv);
         this.settingsContent.append(this.settingsForm);
@@ -98,6 +108,8 @@ TankTrouble.SettingsBox = {
         this.settingsContent.append(this.settingsServerForm);
         this.settingsContent.append(this.settingsQualityTitleDiv);
         this.settingsContent.append(this.settingsQualityForm);
+        this.settingsContent.append(this.settingsThemeTitleDiv);
+        this.settingsContent.append(this.settingsThemeForm);
         this.settings.append(this.settingsContent);
         $("body").append(this.settingsBackground);
         $("body").append(this.settings);
@@ -113,11 +125,16 @@ TankTrouble.SettingsBox = {
         this.settingsServerSelect.css("height", UIConstants.SETTINGS_SERVER_SELECT_HEIGHT);
         this.settingsQualitySelect.css("width", UIConstants.SETTINGS_WIDTH - 10);
         this.settingsQualitySelect.css("height", UIConstants.SETTINGS_QUALITY_SELECT_HEIGHT);
+        this.settingsThemeSelect.css("width", UIConstants.SETTINGS_WIDTH - 10);
+        this.settingsThemeSelect.css("height", UIConstants.SETTINGS_THEME_SELECT_HEIGHT);
         if (Cookies.get('multiplayerserverid')) {
             this.settingsServerSelect.val(Cookies.get('multiplayerserverid'));
         }
         if (Cookies.get('quality')) {
             this.settingsQualitySelect.val(Cookies.get('quality'));
+        }
+        if (Cookies.get('theme')) {
+            this.settingsThemeSelect.val(Cookies.get('theme'));
         }
         this.settingsServerSelect.iconselectmenu({
             change: function(event, ui) {
@@ -129,6 +146,11 @@ TankTrouble.SettingsBox = {
                 self._changeQuality(event, ui);
             }
         }).iconselectmenu("menuWidget").addClass("ui-menu-icons").css("max-height", UIConstants.SETTINGS_QUALITY_MAX_OPTION_HEIGHT);
+        this.settingsThemeSelect.iconselectmenu({
+            change: function(event, ui) {
+                self._changeTheme(event, ui);
+            }
+        }).iconselectmenu("menuWidget").addClass("ui-menu-icons").css("max-height", UIConstants.SETTINGS_THEME_MAX_OPTION_HEIGHT);
         this.initialized = true;
         QualityManager.addEventListener(this._qualityEventHandler, this);
         this._setQuality(QualityManager.getQuality());
@@ -138,12 +160,9 @@ TankTrouble.SettingsBox = {
         setTimeout(function() {
             self._refreshServerStats();
         }, UIConstants.INITIAL_SERVER_STATS_DELAY);
-        this._setHighResolutionTanks(Cookies.get("highResolutionTanks") === "true");
-        this._setTankBadges(Cookies.get("tankBadges") === "true");
         this._setSystemMessages(Cookies.get("systemMessages") === "true");
-        this.highResolutionCheckbox.find("input").on("change", function() {
-            self._setHighResolutionTanks(this.checked);
-        });
+        this._setTankBadges(Cookies.get("tankBadges") === "true");
+        this._setTheme(Cookies.get("theme") || "light");
         this.tankBadgesCheckbox.find("input").on("change", function() {
             self._setTankBadges(this.checked);
         });
@@ -261,12 +280,19 @@ TankTrouble.SettingsBox = {
         this.settingsQualitySelect.val(quality);
         this.settingsQualitySelect.iconselectmenu("refresh");
     },
-    _setHighResolutionTanks: function(disabled) {
-        this.highResolutionCheckbox.find("input").prop("checked", disabled);
-        UIConstants.DISABLE_HIGH_RESOLUTION_TANKS = disabled;
-        Cookies.set("highResolutionTanks", disabled, { expires: 365 });
-        try { reloadGame(); } catch(e) {}
-        try { reloadPlayerPanel(); } catch(e) {}
+    _setTheme: function(theme) {
+        this.settingsThemeSelect.val(theme);
+        this.settingsThemeSelect.iconselectmenu("refresh");
+        Cookies.set("theme", theme, { expires: 365 });
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+    },
+    _changeTheme: function(event, ui) {
+        this.hide();
+        this._setTheme(ui.item.value);
     },
     _setTankBadges: function(disabled) {
         this.tankBadgesCheckbox.find("input").prop("checked", disabled);
