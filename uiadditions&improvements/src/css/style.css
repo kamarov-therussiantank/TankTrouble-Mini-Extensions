@@ -103,10 +103,20 @@
     color: #fff;
     background: linear-gradient(#292929, #1f1f1f);
 }
+:root.dark .ui-widget-content {
+    border: 1px solid #181818;
+    background: #101010;
+    color: #e5e5e5;
+}
 :root.dark .ui-state-default, :root.dark .ui-widget-content .ui-state-default, :root.dark .ui-widget-header .ui-state-default {
     border: 1px solid #121212;
     background: #1d1d1d url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/ui-bg_glass_75_1d1d1d_1x400.png) 50% 50% repeat-x;
     color: #e5e5e5;
+}
+:root.dark .ui-state-hover, :root.dark .ui-widget-content .ui-state-hover, :root.dark .ui-widget-header .ui-state-hover, :root.dark .ui-state-focus, :root.dark .ui-widget-content .ui-state-focus, :root.dark .ui-widget-header .ui-state-focus {
+    border: 1px solid #121212;
+    background: #1d1d1d url(https://raw.githubusercontent.com/kamarov-therussiantank/TankTrouble-Mini-Extensions/refs/heads/main/uiadditions%26improvements/src/assets/images/header/ui-bg_glass_75_1d1d1d_1x400.png) 50% 50% repeat-x;
+    color: #f5f5f5;
 }
 :root.dark .tooltipster-default {
     color: #fff;
@@ -339,26 +349,26 @@ a {
 }
 #chat form {
     border-radius: 5px;
-    background: rgb(255 255 255 / 80%);
+    background: #ffffff;
     padding: 1px;
 }
-#chat form .autocomplete-dropdown{
-    margin-left: 255px !important;
-    margin-top: -1px !important;
-}
 :root.dark #chat form {
-    background: rgb(55 55 55 / 80%);
+    background: #272727;
 }
 :root.dark #chat textarea {
     color: #fff
 }
 #chat.global form {
     background: #68c5ff;
-    border: 1px solid #759fff;
 }
 #chat.user form {
     background: #08ef0a;
-    border: 1px solid #01c701;
+}
+:root.dark #chat.global form {
+    background: #3e8dbe !important;
+}
+:root.dark #chat.user form {
+    background: #06a509 !important;
 }
 #chat:not(.open) form{
     z-index: -1;
